@@ -2,8 +2,16 @@
   padding: 10px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   background-color: #c8c8c8;
   color: #1a1a96;
   border-radius: 20px;
+}
+
+@media (width<=768px) {
+  .App-header {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+  }
 }

@@ -1,10 +1,12 @@
-import { Avatar, Box, Divider, IconButton, Link, ListItemIcon, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Button, Divider, IconButton, Link, ListItemIcon, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
-import React from 'react';
+import React, { useEffect } from 'react';
 import './AppHeader.css'
 
 export function AppHeader() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [isManager, setIsManager] = React.useState<boolean>(true);
+  const [isAuth, setIsAuth] = React.useState<boolean>(true);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -13,50 +15,60 @@ export function AppHeader() {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    setIsManager(true)
+  }, [])
+
   return (
       <header className="App-header">
         <Typography sx={{paddingInlineStart: 3}} variant="h4" component="h1">
           Строительная компания
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-          <Link
-            sx={{paddingInline: "15px"}}
-            fontSize={"22px"}
-            color='#1a1a96'
-            component="button"
-            underline="hover"
-            variant="body1"
-            onClick={() => {
-              
-            }}
-          >
-            Объекты
-          </Link>
-          <Link
-            sx={{paddingInline: "15px"}}
-            fontSize={"22px"}
-            color='#1a1a96'
-            component="button"
-            underline="hover"
-            variant="body1"
-            onClick={() => {
-              
-            }}
-          >
-            Заявки
-          </Link>
-          <Tooltip title="Выйти">
-            <IconButton
-              onClick={handleClick}
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={open ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
+        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', maxWidth: '95vw' }}>
+          { isAuth && isManager &&
+            <Link
+              sx={{paddingInline: "15px"}}
+              fontSize={"22px"}
+              color='#1a1a96'
+              component="button"
+              underline="hover"
+              variant="body1"
+              onClick={() => {
+                
+              }}
             >
-              <Avatar sx={{ width: 32, height: 32, bgcolor: "white", border : "2px solid black"}} src="/builder.png"></Avatar>
+              Объекты
+            </Link>}
+          { isAuth && isManager && 
+            <Link
+              sx={{paddingInline: "15px"}}
+              fontSize={"22px"}
+              color='#1a1a96'
+              component="button"
+              underline="hover"
+              variant="body1"
+              onClick={() => {
+                
+              }}
+            >
+              Заявки
+            </Link>
+          }
+          { isAuth &&
+            <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2, paddingInline: 3 }}
+                aria-controls={open ? 'account-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+              >
+                <Avatar sx={{ width: 32, height: 32, bgcolor: "white", border : "2px solid #1a1a96"}} src="/builder.png"></Avatar>
             </IconButton>
-          </Tooltip>
+          }
+          { isAuth ? 'Name' 
+          : <Button variant="contained" onClick={handleClick}>Войти</Button>
+          }
         </Box>
         <Menu
           anchorEl={anchorEl}
