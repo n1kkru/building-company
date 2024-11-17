@@ -1,0 +1,9 @@
+.App-header {  
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-color: #c8c8c8;
+  color: #1a1a96;
+  border-radius: 20px;
+}
