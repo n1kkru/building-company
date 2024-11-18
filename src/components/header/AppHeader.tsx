@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Divider, IconButton, Link, ListItemIcon, Menu, Men
 import Logout from '@mui/icons-material/Logout';
 import React, { useEffect } from 'react';
 import './AppHeader.css'
+import { Navigate } from 'react-router-dom';
 
 export function AppHeader() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -14,6 +15,10 @@ export function AppHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleUnAuth = () => {
+    setIsAuth(false);
+    handleClose();
+  };
 
   useEffect(() => {
     setIsManager(true)
@@ -21,35 +26,34 @@ export function AppHeader() {
 
   return (
       <header className="App-header">
-        <Typography sx={{paddingInlineStart: 3}} variant="h4" component="h1">
-          Строительная компания
-        </Typography>
+        <Link href="/" underline='none' color='inherit'>
+          <Typography sx={{paddingInlineStart: 3}} variant="h4" component="h1">
+            Строительная компания
+          </Typography>
+        </Link>
         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', maxWidth: '95vw' }}>
           { isAuth && isManager &&
             <Link
               sx={{paddingInline: "15px"}}
               fontSize={"22px"}
               color='#1a1a96'
-              component="button"
+              href="/objects"
               underline="hover"
               variant="body1"
               onClick={() => {
-                
+                <Navigate to='/objects'/>
               }}
             >
               Объекты
             </Link>}
           { isAuth && isManager && 
             <Link
+              href="/reports"
               sx={{paddingInline: "15px"}}
               fontSize={"22px"}
               color='#1a1a96'
-              component="button"
               underline="hover"
               variant="body1"
-              onClick={() => {
-                
-              }}
             >
               Заявки
             </Link>
@@ -67,7 +71,9 @@ export function AppHeader() {
             </IconButton>
           }
           { isAuth ? 'Name' 
-          : <Button variant="contained" onClick={handleClick}>Войти</Button>
+          : <Button variant="text">
+              <Link href="/login" underline='none' color='#1a1a96'>Войти</Link>
+            </Button>
           }
         </Box>
         <Menu
@@ -111,7 +117,7 @@ export function AppHeader() {
             <Avatar /> Профиль
           </MenuItem>
           
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={handleUnAuth}>
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
