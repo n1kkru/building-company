@@ -1,16 +1,43 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
   text-align: center;
-  background-color: #e7e7e7;
+  background-color: transparent;
   min-height: 100vh;
   padding: 10px;
+  position: relative;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App::before {
+  content: '';
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  background-image: url('/public/i.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
 }
 
-.App-link {
-  color: #61dafb;
+.main {
+  display: flex;
+  margin-block: 25px;
+  background-color: #c8c8c8;
+  border-radius: 20px;
+  color: #1a1a96;
+  flex-direction: column;
+  align-items: center;
+  max-height: 80vh;
+  max-width: 80vw;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
 }

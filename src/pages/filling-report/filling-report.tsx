@@ -1,5 +1,4 @@
 import { TextField, Typography, Button, Autocomplete } from '@mui/material';
-import './filling-report.css'
 import React from 'react';
 export const FillingReport = () => {
 

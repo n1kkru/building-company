@@ -6,7 +6,7 @@ import { Navigate } from 'react-router-dom';
 
 export function AppHeader() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [isManager, setIsManager] = React.useState<boolean>(true);
+  const [isManager, setIsManager] = React.useState<boolean>(false);
   const [isAuth, setIsAuth] = React.useState<boolean>(true);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
