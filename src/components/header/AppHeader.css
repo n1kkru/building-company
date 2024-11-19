@@ -6,6 +6,9 @@
   background-color: #c8c8c8;
   color: #1a1a96;
   border-radius: 20px;
+  min-width: 90vw;
+  border: 0.1rem solid #1a1a96;
+
 }
 
 @media (width<=768px) {

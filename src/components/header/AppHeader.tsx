@@ -34,7 +34,7 @@ export function AppHeader() {
         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', maxWidth: '95vw' }}>
           { isAuth && isManager &&
             <Link
-              sx={{paddingInline: "15px"}}
+              sx={{paddingInline: "30px 15px"}}
               fontSize={"22px"}
               color='#1a1a96'
               href="/objects"
