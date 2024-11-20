@@ -87,29 +87,26 @@ export const Objects = () => {
     {
       field: "name",
       headerName: "Название",
+      type: "string",
       width: 180,
-      editable: true,
     },
     {
       field: "address",
+      type: "string",
       headerName: "Адрес",
       width: 180,
-      editable: true,
     },
     {
       field: "date",
       headerName: "Дата",
       type: "string",
       width: 120,
-      editable: true,
     },
     {
       field: "total",
       headerName: "Заявок",
       type: "number",
       width: 150,
-      editable: true,
-      // valueGetter: (value, row) => `${row.name || ''} ${row.address || ''}`,
     },
   ];
 

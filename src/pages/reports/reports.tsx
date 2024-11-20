@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import { TReport } from "../../utils/types";
+import { TReport } from "../../utils/types.ts";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import {
   renderEditStatus,
@@ -16,8 +16,10 @@ type reportsProps = {
 
 export const Reports = () => {
   const dispatch = useDispatch();
+
+  const title = useSelector(state => state.reportsReducers.formData)
   useEffect(() => {
-    dispatch(fetchGetReports());
+    dispatch(fetchGetReports());   
   }, []);
   const reportsList = useSelector((store) => store.reportsReducers.reports);
 
@@ -103,7 +105,7 @@ export const Reports = () => {
       valueOptions: STATUS_OPTIONS,
     },
     {
-      field: "object",
+      field: "objectName",
       headerName: "Объект",
       type: "string",
       width: 120,

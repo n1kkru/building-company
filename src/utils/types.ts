@@ -1,7 +1,6 @@
-export type TStatus = "not considered" | "done" | "rejected"
+export type TStatus = "Ожидает" | "Готово" | "Отклонено"
 
-export type TReport = {
-  id: number
+export type TNewReport = {
   title: string
   text: string
   email: string
@@ -9,6 +8,10 @@ export type TReport = {
   status: TStatus
   objectName: string
 }
+
+export type TReport = {
+  id: number
+} & TNewReport
 
 export type TObject = {
   id: number

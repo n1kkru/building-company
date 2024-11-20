@@ -1,4 +1,4 @@
-import { TObject, TReport } from "./types";
+import { TNewReport, TObject, TReport } from "./types";
 
 const BASE_URL = "https://3ed8cab4c3743da5.mokky.dev";
 
@@ -20,3 +20,17 @@ export const getReportsApi = () =>
       if (data) return data;
       return Promise.reject(data);
     });
+
+export const postReportApi = (newReport : TNewReport) =>
+  fetch(`${BASE_URL}/reports`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify({
+      ...newReport
+    })
+  }).then((data) => {
+    if (data) return data;
+    return Promise.reject(data);
+  });

@@ -26,9 +26,6 @@ interface StatusProps {
 
 const StyledChip = styled(Chip)(({ theme }) => ({
   justifyContent: "left",
-  "& .icon": {
-    color: "inherit",
-  },
   "&.Готово": {
     color: "green",
     border: `1px solid green`,
@@ -46,15 +43,6 @@ const StyledChip = styled(Chip)(({ theme }) => ({
 const Status = React.memo((props: StatusProps) => {
   const { status } = props;
 
-  let icon: any = null;
-  if (status === "Отклонено") {
-    icon = <ReportProblemIcon className="icon" />;
-  } else if (status === "Ожидает") {
-    icon = <AutorenewIcon className="icon" />;
-  } else if (status === "Готово") {
-    icon = <DoneIcon className="icon" />;
-  }
-
   let label: string = status;
   if (status === "Ожидает") {
     label = "Ожидает";
@@ -63,7 +51,6 @@ const Status = React.memo((props: StatusProps) => {
   return (
     <StyledChip
       className={status}
-      icon={icon}
       size="small"
       label={label}
       variant="outlined"
@@ -115,15 +102,6 @@ function EditStatus(props: GridRenderEditCellParams<any, string>) {
       open
     >
       {STATUS_OPTIONS.map((option) => {
-        let IconComponent: any = null;
-        if (option === "Отклонено") {
-          IconComponent = ReportProblemIcon;
-        } else if (option === "Ожидает") {
-          IconComponent = AutorenewIcon;
-        } else if (option === "Готово") {
-          IconComponent = DoneIcon;
-        }
-
         let label = option;
         if (option === "Ожидает") {
           label = "Ожидает";
@@ -131,9 +109,6 @@ function EditStatus(props: GridRenderEditCellParams<any, string>) {
 
         return (
           <MenuItem key={option} value={option}>
-            <ListItemIcon sx={{ minWidth: 36 }}>
-              <IconComponent fontSize="small" />
-            </ListItemIcon>
             <ListItemText primary={label} sx={{ overflow: "hidden" }} />
           </MenuItem>
         );
