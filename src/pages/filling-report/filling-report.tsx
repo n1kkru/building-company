@@ -1,29 +1,37 @@
-import { TextField, Typography, Button, Autocomplete } from "@mui/material";
 import React, { useState } from "react";
-import { addDate, addEmail, addText, addTitle, fetchPostReport } from "../../utils/reportsSlice.ts";
+import { TextField, Typography, Button, Autocomplete } from "@mui/material";
+
+import { fetchPostReport } from "../../utils/reportsSlice.ts";
 import { useDispatch, useSelector } from "../../utils/store.ts";
-import { postReportApi } from "../../utils/api.ts";
 
 export const FillingReport = () => {
   const dispatch = useDispatch();
-  const [newReport, setNewReport] = useState();
+  const [title, setTitle] = useState<string>("");
+  const [text, setText] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [objectName, setObjectName] = useState<string>("");
+
+  const objectsList: string[] = useSelector((state) =>
+    state.objectReducers.objects
+      .map((obj) => `${obj.name} - ${obj.address}`)
+      .filter((item, i, ar) => ar.indexOf(item) === i)
+  );
 
   const onReportClick = () => {
-    console.log("Click");
-    
-      const date = new Date();
-      dispatch(addDate(String(date)))
-      dispatch(fetchPostReport(
-        {
-          title: "Проблема",
-          text: "большая проблема",
-          email: "test@mail.ru",
-          date: "2024-11-11",
-          status: "Ожидает",
-          objectName: "Rfdf",
-        }
-      ))
-  }
+    const date = new Date();
+    dispatch(
+      fetchPostReport({
+        title: title,
+        text: text,
+        email: email,
+        date: String(
+          `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+        ),
+        status: "Ожидает",
+        objectName: objectName,
+      })
+    );
+  };
 
   return (
     <main className="main">
@@ -37,7 +45,7 @@ export const FillingReport = () => {
           label="Название"
           variant="standard"
           onBlur={(e) => {
-            dispatch(addTitle(e.target.value));
+            setTitle(e.target.value);
           }}
         />
         <TextField
@@ -47,8 +55,8 @@ export const FillingReport = () => {
           variant="standard"
           multiline
           maxRows={6}
-          onChange={(e) => {
-            dispatch(addText(e.target.value));
+          onBlur={(e) => {
+            setText(e.target.value);
           }}
         />
         <TextField
@@ -56,20 +64,22 @@ export const FillingReport = () => {
           id="email"
           label="Email"
           variant="standard"
-          onChange={(e) => {
-            dispatch(addEmail(e.target.value));
+          onBlur={(e) => {
+            setEmail(e.target.value);
           }}
         />
         <Autocomplete
           sx={{ width: "350px", paddingBlock: "15px" }}
           disablePortal
-          options={["Детский сад", "Школа", "Музей"]}
+          options={objectsList}
+          onChange={(e) => {
+            setObjectName(`${e.currentTarget.textContent}`);
+          }}
           renderInput={(params) => <TextField {...params} label="Объект" />}
         />
         <Button
           sx={{ marginBlockStart: "35px" }}
           variant="contained"
-          
           onClick={onReportClick}
         >
           Отправить

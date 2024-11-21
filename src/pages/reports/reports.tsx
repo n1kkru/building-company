@@ -1,26 +1,16 @@
+import React from "react";
+
 import { Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import { TReport } from "../../utils/types.ts";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+
 import {
   renderEditStatus,
   renderStatus,
   STATUS_OPTIONS,
 } from "../../utils/status.tsx";
-import { useDispatch, useSelector } from "../../utils/store.ts";
-import { fetchGetReports } from "../../utils/reportsSlice.ts";
-
-type reportsProps = {
-  reports: TReport[];
-};
+import { useSelector } from "../../utils/store.ts";
 
 export const Reports = () => {
-  const dispatch = useDispatch();
-
-  const title = useSelector(state => state.reportsReducers.formData)
-  useEffect(() => {
-    dispatch(fetchGetReports());   
-  }, []);
   const reportsList = useSelector((store) => store.reportsReducers.reports);
 
   const mocky = [

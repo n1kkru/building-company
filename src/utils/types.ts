@@ -15,6 +15,7 @@ export type TReport = {
 
 export type TObject = {
   id: number
+  address: string
   name: string
   date: string
   total: number

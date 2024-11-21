@@ -1,16 +1,10 @@
 import { Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import React, { useEffect } from "react";
+import React from "react";
 import { TObject } from "../../utils/types";
-import { useDispatch, useSelector } from "../../utils/store.ts";
-import { fetchGetObjects, getIsLoading } from "../../utils/objectsSlice.ts";
+import { useSelector } from "../../utils/store.ts";
 
 export const Objects = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchGetObjects());
-  }, []);
-
   const objectsList: TObject[] = useSelector(
     (state) => state.objectReducers.objects
   );
