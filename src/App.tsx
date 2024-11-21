@@ -11,6 +11,7 @@ import { Objects } from "./pages/objects/objects.tsx";
 import { useDispatch, useSelector } from "./utils/store.ts";
 import { fetchGetObjects, getIsLoading } from "./utils/objectsSlice.ts";
 import { fetchGetReports } from "./utils/reportsSlice.ts";
+import { Register } from "./pages/register/register.tsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<FillingReport />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" />
+        <Route path="/register" element={<Register/>} />
         <Route path="/objects" element={<Objects />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/filling-report" />

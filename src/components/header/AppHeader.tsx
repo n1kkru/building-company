@@ -15,12 +15,15 @@ import Logout from "@mui/icons-material/Logout";
 import React, { useEffect } from "react";
 import "./AppHeader.css";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "../../utils/store.ts";
 
 export function AppHeader() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [isManager, setIsManager] = React.useState<boolean>(false);
-  const [isAuth, setIsAuth] = React.useState<boolean>(true);
-  const [mobile, setMobi] = React.useState<boolean>(true);
+  const [mobile, setMobi] = React.useState<boolean>(false);
+
+  const isAuth = useSelector(state => state.userReducers.isAuthCheck);
+  const name = useSelector(state => state.userReducers.user?.name);
 
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -30,13 +33,9 @@ export function AppHeader() {
     setAnchorEl(null);
   };
   const handleUnAuth = () => {
-    setIsAuth(false);
     handleClose();
   };
 
-  useEffect(() => {
-    setIsManager(false);
-  }, []);
 
   return (
     <header className="App-header">
@@ -101,7 +100,7 @@ export function AppHeader() {
             ></Avatar>
           </IconButton>
         )}
-        {isAuth && !mobile && "Name"}
+        {isAuth && !mobile && name}
         {!isAuth && (
           <Button variant="text">
             <Link href="/login" underline="none" color="#1a1a96">

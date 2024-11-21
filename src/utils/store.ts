@@ -1,6 +1,7 @@
 import { combineReducers, configureStore, createSlice } from "@reduxjs/toolkit";
 import objectReducers from "./objectsSlice.ts";
 import reportsReducers from "./reportsSlice.ts";
+import userReducers from "./userSlice.ts";
 
 import {
   TypedUseSelectorHook,
@@ -11,7 +12,7 @@ import {
 const rootReducer = combineReducers({
   reportsReducers: reportsReducers,
   objectReducers: objectReducers,
-  // userReducers: userReducers,
+  userReducers: userReducers,
 });
 
 const store = configureStore({

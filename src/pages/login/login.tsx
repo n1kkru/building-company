@@ -1,69 +1,71 @@
-import { Button, Input, Typography } from '@mui/material';
-import React from 'react';
-import { FC, SyntheticEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
-// import { loginUserThunk } from '../../services/userSlice';
-import { Navigate, useLocation , Link} from 'react-router-dom';
+import { Button, Input, Typography } from "@mui/material";
+import React from "react";
+import { SyntheticEvent, useState } from "react";
+
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { loginUserThunk } from "../../utils/userSlice.ts";
+import { useDispatch, useSelector } from "../../utils/store.ts";
 
 export const Login = () => {
-  // const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const location = useLocation();
-  const ariaLabel = { 'aria-label': 'description' };
-
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const ariaLabel = { "aria-label": "description" };
+  const navigate = useNavigate();
+  const isAuth = useSelector(state => state.userReducers.isAuthCheck)
   const handleSubmit = (e: SyntheticEvent) => {
-    
     e.preventDefault();
-    // dispatch(loginUserThunk({email, password}));
-    const { from } = location.state || {from : {pathname: "/"}};
-    return <Navigate to={from}/>
+    dispatch(loginUserThunk({ email, password }));
+    if (isAuth) return navigate("/");
   };
 
   return (
-  <main className={"main"}>
-    <div>
-      <Typography variant='h4' component="h2">Вход</Typography>
-      <form
-        className={"form"}
-        name='login'
-        onSubmit={handleSubmit}
-      >
-        
-        <Input 
-          type='email'
-          name='email'
-          placeholder="E-mail" 
-          inputProps={ariaLabel} 
-          onChange={(e) => {setEmail(e.target.value)}}
-          size='medium'
-          error
-          onError={()=>{}}
-        />
-        <Input 
-          type='password'
-          name='password'
-          placeholder="Пароль" 
-          inputProps={ariaLabel} 
-          onChange={(e) => {setPassword(e.target.value)}}
-          size='medium'
-          error
-          onError={()=>{}}
-        />
-        <Button sx={{marginBlockStart : '35px'}} variant="contained" disabled>Отправить</Button>
-{/* 
+    <main className={"main"}>
+      <div>
+        <Typography variant="h4" component="h2">
+          Вход
+        </Typography>
+        <form className={"form"} name="login">
+          <Input
+            sx={{ padding: 2 }}
+            type="email"
+            name="email"
+            placeholder="E-mail"
+            inputProps={ariaLabel}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            size="medium"
+            onError={() => {}}
+          />
+          <Input
+            sx={{ padding: 2 }}
+            type="password"
+            name="password"
+            placeholder="Пароль"
+            inputProps={ariaLabel}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            size="medium"
+            onError={() => {}}
+          />
+          <Button
+            sx={{ marginBlock: "35px" }}
+            variant="contained"
+            onClick={handleSubmit}
+          >
+            Войти
+          </Button>
+          {/* 
         {errorText && (
           <p >
             {errorText}
           </p>
         )} */}
-      </form>
-      <div>
-        Вы - новый пользователь?
-        <Link to='/register'>
-          Зарегистрироваться
-        </Link>
+          <Link to="/register">Зарегистрироваться</Link>
+        </form>
       </div>
-    </div>
-  </main>
-  )}
+    </main>
+  );
+};
