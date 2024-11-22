@@ -71,6 +71,8 @@ export const loginUserApi = (data: TLoginData) =>
   })
     .then((res) => checkResponse<TAuthResponse>(res))
     .then((data) => {
+      console.log("АПИ работает");
+      
       if (data) return data;
       return Promise.reject(data);
     });

@@ -13,6 +13,8 @@ export const registerUserThunk = createAsyncThunk(
 export const loginUserThunk = createAsyncThunk(
   'users/loginUser',
   async (data: TLoginData) => {
+    console.log("Санка работает, токен сохранен");
+
     const res = await loginUserApi(data);
     localStorage.setItem('accessToken', res.token);
     return res
@@ -79,15 +81,22 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
       builder.addCase(loginUserThunk.pending, (state) => {
+        console.log("ЭКСТРА пендинг");
         state.isLoading = true;
+        state.isAuthCheck = false
       });
       builder.addCase(loginUserThunk.rejected, (state) => {
+        console.log("ЭКСТРА Не работает");
+        state.isAuthCheck = false
         state.isLoading = false;
       });
       builder.addCase(loginUserThunk.fulfilled, (state, action : PayloadAction<TAuthResponse>) => {
+        console.log("ЭКСТРА работает");
         state.isLoading = false;
         state.user = action.payload.data;
-        state.isAuthCheck = true;        
+        state.isAuthCheck = true;  
+        console.log("state.isAuthCheck", state.isAuthCheck);
+              
       });
 
       builder.addCase(registerUserThunk.pending, (state) => {

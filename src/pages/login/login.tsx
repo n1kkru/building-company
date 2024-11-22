@@ -1,5 +1,5 @@
 import { Button, Input, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { SyntheticEvent, useState } from "react";
 
 import { useNavigate, useLocation, Link } from "react-router-dom";
@@ -13,11 +13,15 @@ export const Login = () => {
   const ariaLabel = { "aria-label": "description" };
   const navigate = useNavigate();
   const isAuth = useSelector(state => state.userReducers.isAuthCheck)
+  
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUserThunk({ email, password }));
-    if (isAuth) return navigate("/");
+    dispatch(loginUserThunk({ email, password }))
   };
+
+  useEffect(() => {
+    if (isAuth) return navigate("/");
+  }, [isAuth])
 
   return (
     <main className={"main"}>
