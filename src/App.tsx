@@ -12,13 +12,10 @@ import { useDispatch, useSelector } from "./utils/store.ts";
 import { fetchGetObjects, getIsLoading } from "./utils/objectsSlice.ts";
 import { fetchGetReports } from "./utils/reportsSlice.ts";
 import { Register } from "./pages/register/register.tsx";
+import { getUserThunk } from "./utils/userSlice.ts";
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchGetObjects());
-    dispatch(fetchGetReports());
-  }, []);
+
 
   return (
     <div className={"App"}>

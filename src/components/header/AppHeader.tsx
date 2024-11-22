@@ -15,9 +15,11 @@ import Logout from "@mui/icons-material/Logout";
 import React, { useEffect } from "react";
 import "./AppHeader.css";
 import { Navigate } from "react-router-dom";
-import { useSelector } from "../../utils/store.ts";
+import { useDispatch, useSelector } from "../../utils/store.ts";
+import { logout, setAuthCkeck } from "../../utils/userSlice.ts";
 
 export function AppHeader() {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [isManager, setIsManager] = React.useState<boolean>(false);
   const [mobile, setMobi] = React.useState<boolean>(false);
@@ -33,9 +35,10 @@ export function AppHeader() {
     setAnchorEl(null);
   };
   const handleUnAuth = () => {
+    dispatch(logout());
+    dispatch(setAuthCkeck(false));
     handleClose();
   };
-
 
   return (
     <header className="App-header">

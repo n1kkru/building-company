@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Typography, Button, Autocomplete } from "@mui/material";
 
 import { fetchPostReport } from "../../utils/reportsSlice.ts";
 import { useDispatch, useSelector } from "../../utils/store.ts";
+import { getUserThunk } from "../../utils/userSlice.ts";
 
 export const FillingReport = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,9 @@ export const FillingReport = () => {
   const [email, setEmail] = useState<string>("");
   const [objectName, setObjectName] = useState<string>("");
   
+  useEffect(() => {
+    dispatch(getUserThunk());
+  }, []);
 
   const objectsList: string[] = useSelector((state) =>
     state.objectReducers.objects

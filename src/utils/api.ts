@@ -79,19 +79,20 @@ export const loginUserApi = (data: TLoginData) =>
 
 
 export const getUserApi = () =>
-  fetch(`${URL}/auth/user`, {
+  fetch(`${BASE_URL}/auth_me`, {
+    method: "GET",
     headers: {
-      authorization: localStorage.getItem('accessToken')
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
     } as HeadersInit
-  });
+  })
 
-export const logoutApi = () =>
-  fetch(`${BASE_URL}/auth/logout`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem('refreshToken')
-    })
-  }).then((res) => checkResponse<{}>(res));
+// export const logoutApi = () =>
+//   fetch(`${BASE_URL}/auth_me`, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json;charset=utf-8'
+//     },
+//     body: JSON.stringify({
+//       token: localStorage.getItem('accessToken')
+//     })
+//   }).then((res) => checkResponse<{}>(res));
