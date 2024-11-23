@@ -13,6 +13,7 @@
 
 @media (width<=768px) {
   .App-header {
+    max-width: 90vw;
     display: grid;
     justify-content: center;
     grid-template-columns: auto;

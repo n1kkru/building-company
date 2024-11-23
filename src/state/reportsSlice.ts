@@ -1,5 +1,5 @@
-import { getReportsApi, postReportApi } from "./api.ts";
-import { TNewReport, TReport, TStatus } from "./types";
+import { getReportsApi, postReportApi } from "../utils/api.ts";
+import { TNewReport, TReport, TStatus } from "../utils/types.ts";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface ReportsStateInterface {
@@ -38,8 +38,6 @@ export const fetchPostReport = createAsyncThunk(
   "reports/postReport",
   async function (report: TNewReport) {
     const res = await postReportApi(report);
-    console.log('fetch post ', res);
-    
     return res;
   }
 );

@@ -4,7 +4,7 @@ import "./index.css";
 import App from './App.tsx'
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import store from "./utils/store.ts";
+import store from "./state/store.ts";
 
 const domNode = document.getElementById("root") as HTMLDivElement;
 const root = createRoot(domNode);

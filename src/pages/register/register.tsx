@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
-import { useDispatch, useSelector } from "../../utils/store.ts";
-import { registerUserThunk } from "../../utils/userSlice.ts";
+import { useDispatch, useSelector } from "../../state/store.ts";
+import { registerUserThunk } from "../../state/userSlice.ts";
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Typography } from "@mui/material";
 

@@ -1,5 +1,5 @@
-import { getObjectsApi } from "./api.ts";
-import { TObject } from "./types";
+import { getObjectsApi } from "../utils/api.ts";
+import { TObject } from "../utils/types.ts";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface ObjectsStateInterface {

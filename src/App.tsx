@@ -8,23 +8,19 @@ import { Login } from "./pages/login/login.tsx";
 import { Reports } from "./pages/reports/reports.tsx";
 import { Objects } from "./pages/objects/objects.tsx";
 
-import { useDispatch, useSelector } from "./utils/store.ts";
-import { fetchGetObjects, getIsLoading } from "./utils/objectsSlice.ts";
-import { fetchGetReports } from "./utils/reportsSlice.ts";
+import { useDispatch } from "./state/store.ts";
+import { fetchGetObjects } from "./state/objectsSlice.ts";
+import { fetchGetReports } from "./state/reportsSlice.ts";
 import { Register } from "./pages/register/register.tsx";
-import { getUserThunk } from "./utils/userSlice.ts";
+import { getUserThunk } from "./state/userSlice.ts";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchGetObjects());
     dispatch(fetchGetReports());
+    dispatch(getUserThunk());
   }, []);
-
-  useEffect(() => {
-  
-      dispatch(getUserThunk());
-    }, []);
 
   return (
     <div className={"App"}>
@@ -33,7 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<FillingReport />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register/>} />
+        <Route path="/register" element={<Register />} />
         <Route path="/objects" element={<Objects />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/filling-report" />

@@ -2,9 +2,9 @@ import { Button, Input, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { SyntheticEvent, useState } from "react";
 
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { loginUserThunk } from "../../utils/userSlice.ts";
-import { useDispatch, useSelector } from "../../utils/store.ts";
+import { useNavigate, Link } from "react-router-dom";
+import { loginUserThunk } from "../../state/userSlice.ts";
+import { useDispatch, useSelector } from "../../state/store.ts";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -12,16 +12,16 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const ariaLabel = { "aria-label": "description" };
   const navigate = useNavigate();
-  const isAuth = useSelector(state => state.userReducers.isAuthCheck)
-  
+  const isAuth = useSelector((state) => state.userReducers.isAuthCheck);
+
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUserThunk({ email, password }))
+    dispatch(loginUserThunk({ email, password }));
   };
 
   useEffect(() => {
     if (isAuth) return navigate("/");
-  }, [isAuth])
+  }, [isAuth]);
 
   return (
     <main className={"main"}>
@@ -31,7 +31,7 @@ export const Login = () => {
         </Typography>
         <form className={"form"} name="login">
           <Input
-            sx={{ padding: 2 }}
+            sx={{ padding: 2, width: "90%" }}
             type="email"
             name="email"
             placeholder="E-mail"
@@ -43,7 +43,7 @@ export const Login = () => {
             onError={() => {}}
           />
           <Input
-            sx={{ padding: 2 }}
+            sx={{ padding: 2, width: "90%" }}
             type="password"
             name="password"
             placeholder="Пароль"
@@ -55,7 +55,7 @@ export const Login = () => {
             onError={() => {}}
           />
           <Button
-            sx={{ marginBlock: "35px" }}
+            sx={{ marginBlock: "35px", width: "90%" }}
             variant="contained"
             onClick={handleSubmit}
           >

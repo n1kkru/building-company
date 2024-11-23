@@ -21,21 +21,19 @@ export const getReportsApi = () =>
       return Promise.reject(data);
     });
 
-export const postReportApi = (newReport : TNewReport) =>
+export const postReportApi = (newReport: TNewReport) =>
   fetch(`${BASE_URL}/reports`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify({
-      ...newReport
-    })
+      ...newReport,
+    }),
   }).then((data) => {
     if (data) return data;
     return Promise.reject(data);
   });
-
-
 
 export type TAuthResponse = {
   token: string;
@@ -44,11 +42,11 @@ export type TAuthResponse = {
 
 export const registerUserApi = (data: TUser) =>
   fetch(`${BASE_URL}/register`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      "Content-Type": "application/json;charset=utf-8",
     },
-    body: JSON.stringify({...data, isManager: false})
+    body: JSON.stringify({ ...data, isManager: false }),
   })
     .then((res) => checkResponse<TAuthResponse>(res))
     .then((data) => {
@@ -63,35 +61,31 @@ export type TLoginData = {
 
 export const loginUserApi = (data: TLoginData) =>
   fetch(`${BASE_URL}/auth`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      "Content-Type": "application/json;charset=utf-8",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   })
     .then((res) => checkResponse<TAuthResponse>(res))
     .then((data) => {
-      console.log("АПИ работает");
-      
       if (data) return data;
       return Promise.reject(data);
     });
 
-    
 type TUserResponse = {
-  email: string
-  name: string
-  id: number
-}
+  email: string;
+  name: string;
+  id: number;
+};
 
 export const getUserApi = () =>
   fetch(`${BASE_URL}/auth_me`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-    } as HeadersInit
-  })
-  .then((data) => checkResponse<TUser>(data))
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    } as HeadersInit,
+  }).then((data) => checkResponse<TUser>(data));
 
 // export const logoutApi = () =>
 //   fetch(`${BASE_URL}/auth_me`, {

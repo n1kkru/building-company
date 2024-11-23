@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React from "react";
 import { TObject } from "../../utils/types";
-import { useSelector } from "../../utils/store.ts";
+import { useSelector } from "../../state/store.ts";
 
 export const Objects = () => {
   const objectsList: TObject[] = useSelector(

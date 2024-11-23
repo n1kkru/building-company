@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { TextField, Typography, Button, Autocomplete } from "@mui/material";
 
-import { fetchPostReport } from "../../utils/reportsSlice.ts";
-import { useDispatch, useSelector } from "../../utils/store.ts";
+import { fetchPostReport } from "../../state/reportsSlice.ts";
+import { useDispatch, useSelector } from "../../state/store.ts";
 
 export const FillingReport = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ export const FillingReport = () => {
   const [email, setEmail] = useState<string>("");
   const [objectName, setObjectName] = useState<string>("");
 
-  const userEmail = useSelector(state => state.userReducers.user?.email);
+  const userEmail = useSelector((state) => state.userReducers.user?.email);
 
   const objectsList: string[] = useSelector((state) =>
     state.objectReducers.objects
@@ -42,7 +42,7 @@ export const FillingReport = () => {
           Оставить заявку
         </Typography>
         <TextField
-          sx={{ width: "350px", paddingBlockEnd: "15px" }}
+          sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
           id="title"
           label="Название"
           variant="standard"
@@ -51,7 +51,7 @@ export const FillingReport = () => {
           }}
         />
         <TextField
-          sx={{ width: "350px", paddingBlockEnd: "15px" }}
+          sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
           id="text"
           label="Опишите проблему"
           variant="standard"
@@ -62,7 +62,7 @@ export const FillingReport = () => {
           }}
         />
         <TextField
-          sx={{ width: "350px", paddingBlockEnd: "15px" }}
+          sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
           id="email"
           label="Email"
           variant="standard"
@@ -72,7 +72,7 @@ export const FillingReport = () => {
           }}
         />
         <Autocomplete
-          sx={{ width: "350px", paddingBlock: "15px" }}
+          sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
           disablePortal
           options={objectsList}
           onChange={(e) => {
@@ -81,7 +81,7 @@ export const FillingReport = () => {
           renderInput={(params) => <TextField {...params} label="Объект" />}
         />
         <Button
-          sx={{ marginBlockStart: "35px" }}
+          sx={{ marginBlockStart: "35px", width: "50%" }}
           variant="contained"
           onClick={onReportClick}
         >

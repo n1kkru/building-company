@@ -15,17 +15,19 @@ import Logout from "@mui/icons-material/Logout";
 import React, { useEffect } from "react";
 import "./AppHeader.css";
 import { Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "../../utils/store.ts";
-import { logout, setAuthCkeck } from "../../utils/userSlice.ts";
+import { useDispatch, useSelector } from "../../state/store.ts";
+import { logout, setAuthCkeck } from "../../state/userSlice.ts";
 
 export function AppHeader() {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [mobile, setMobi] = React.useState<boolean>(false);
+  let isMobile;
+  if (window.screen.width <= 768) isMobile = true;
+  else isMobile = false;
 
-  const isAuth = useSelector(state => state.userReducers.isAuthCheck);
+  const isAuth = useSelector((state) => state.userReducers.isAuthCheck);
   const isManager = useSelector((state) => state.userReducers.user?.isManager);
-  const name = useSelector(state => state.userReducers.user?.name);
+  const name = useSelector((state) => state.userReducers.user?.name);
 
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -103,7 +105,7 @@ export function AppHeader() {
             ></Avatar>
           </IconButton>
         )}
-        {isAuth && !mobile && name}
+        {isAuth && !isMobile && name}
         {!isAuth && (
           <Button variant="text">
             <Link href="/login" underline="none" color="#1a1a96">
