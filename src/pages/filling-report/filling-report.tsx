@@ -3,7 +3,6 @@ import { TextField, Typography, Button, Autocomplete } from "@mui/material";
 
 import { fetchPostReport } from "../../utils/reportsSlice.ts";
 import { useDispatch, useSelector } from "../../utils/store.ts";
-import { getUserThunk } from "../../utils/userSlice.ts";
 
 export const FillingReport = () => {
   const dispatch = useDispatch();
@@ -11,14 +10,12 @@ export const FillingReport = () => {
   const [text, setText] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [objectName, setObjectName] = useState<string>("");
-  
-  useEffect(() => {
-    dispatch(getUserThunk());
-  }, []);
+
+  const userEmail = useSelector(state => state.userReducers.user?.email);
 
   const objectsList: string[] = useSelector((state) =>
     state.objectReducers.objects
-      .map((obj) => `${obj.name} - ${obj.address}`)
+      .map((obj) => `${obj.name}`)
       .filter((item, i, ar) => ar.indexOf(item) === i)
   );
 
@@ -69,6 +66,7 @@ export const FillingReport = () => {
           id="email"
           label="Email"
           variant="standard"
+          defaultValue={`${userEmail}`}
           onBlur={(e) => {
             setEmail(e.target.value);
           }}

@@ -13,10 +13,8 @@ export const registerUserThunk = createAsyncThunk(
 export const loginUserThunk = createAsyncThunk(
   'users/loginUser',
   async (data: TLoginData) => {
-    const res = await loginUserApi(data);    
+    const res = await loginUserApi(data);
     localStorage.setItem('accessToken', res.token);
-    localStorage.setItem('userName', res.data.name)
-    localStorage.setItem('userEmail', res.data.email)
     return res
   }
 )
@@ -38,24 +36,13 @@ export const getUserThunk = createAsyncThunk(
     async (_, {dispatch}) => {
       if (localStorage.getItem('accessToken')) {
         await getUserApi()
-          .then(() => {
-            dispatch(setUser(
-              {
-                name: `${localStorage.getItem('userName')}`,
-                email: `${localStorage.getItem('userEmail')}`,
-                password: ""
-              }
-            ));
+          .then((data) => {
+            dispatch(setUser(data));
             dispatch(setAuthCkeck(true));
           })
           .catch((res) => {
             localStorage.removeItem('accessToken');
           })
-      }
-      else {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('userEmail');
       }
     }
 )
@@ -64,6 +51,7 @@ export interface UserState {
   isRegCheck: boolean;
   isAuthCheck: boolean;
   isLoading: boolean;
+  isManager: boolean;
   user: TUser | null;
   error: string | null;
 }
@@ -72,6 +60,7 @@ const initialState: UserState = {
   isRegCheck: false,
   isAuthCheck: false,
   isLoading: false,
+  isManager: false,
   user: null,
   error: null,
 }
@@ -84,10 +73,8 @@ export const userSlice = createSlice({
         state.isAuthCheck = action.payload;
       },
       logout: (state) => {
-        state.user = null;
         localStorage.removeItem('accessToken');
-        localStorage.removeItem('userName')
-        localStorage.removeItem('userEmail')
+        state.user = null;
         state.isAuthCheck = false;
       },
       setUser: (state, action: PayloadAction<TUser>) => {

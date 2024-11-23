@@ -21,10 +21,10 @@ import { logout, setAuthCkeck } from "../../utils/userSlice.ts";
 export function AppHeader() {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [isManager, setIsManager] = React.useState<boolean>(false);
   const [mobile, setMobi] = React.useState<boolean>(false);
 
   const isAuth = useSelector(state => state.userReducers.isAuthCheck);
+  const isManager = useSelector((state) => state.userReducers.user?.isManager);
   const name = useSelector(state => state.userReducers.user?.name);
 
   const open = Boolean(anchorEl);

@@ -15,7 +15,16 @@ import { Register } from "./pages/register/register.tsx";
 import { getUserThunk } from "./utils/userSlice.ts";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchGetObjects());
+    dispatch(fetchGetReports());
+  }, []);
 
+  useEffect(() => {
+  
+      dispatch(getUserThunk());
+    }, []);
 
   return (
     <div className={"App"}>

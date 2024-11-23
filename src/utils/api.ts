@@ -48,7 +48,7 @@ export const registerUserApi = (data: TUser) =>
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify({...data, isManager: false})
   })
     .then((res) => checkResponse<TAuthResponse>(res))
     .then((data) => {
@@ -77,6 +77,12 @@ export const loginUserApi = (data: TLoginData) =>
       return Promise.reject(data);
     });
 
+    
+type TUserResponse = {
+  email: string
+  name: string
+  id: number
+}
 
 export const getUserApi = () =>
   fetch(`${BASE_URL}/auth_me`, {
@@ -85,6 +91,7 @@ export const getUserApi = () =>
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`
     } as HeadersInit
   })
+  .then((data) => checkResponse<TUser>(data))
 
 // export const logoutApi = () =>
 //   fetch(`${BASE_URL}/auth_me`, {
