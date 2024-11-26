@@ -1,0 +1,22 @@
+.header {  
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #c8c8c8;
+  color: #1a1a96;
+  border-radius: 20px;
+  min-width: 90vw;
+  border: 0.1rem solid #1a1a96;
+
+}
+
+@media (width<=768px) {
+  .header {
+    max-width: 90vw;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+  }
+}
