@@ -6,7 +6,7 @@ export type TNewReport = {
   email: string;
   date: string;
   status: TStatus;
-  object: TObject;
+  object: TObject | undefined;
 };
 
 export type TReport = {

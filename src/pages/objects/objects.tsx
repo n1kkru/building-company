@@ -4,6 +4,8 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { TObject } from "../../utils/types";
 import { useSelector } from "../../state/store";
 
+import styles from './objects.module.css'
+
 export const Objects = () => {
   const objectsList: TObject[] = useSelector(
     (state) => state.objectReducers.objects
@@ -105,8 +107,8 @@ export const Objects = () => {
   ];
 
   return (
-    <main className="main">
-      <Typography variant="h4" component="h2">
+    <>
+      <Typography variant="h4" component="h2" className={styles.title}>
         Объекты
       </Typography>
       <DataGrid
@@ -123,6 +125,6 @@ export const Objects = () => {
         pageSizeOptions={[8]}
         disableRowSelectionOnClick
       />
-    </main>
+    </>
   );
 };

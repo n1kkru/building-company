@@ -32,7 +32,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/objects" element={<Objects />} />
           <Route path="/reports" element={<Reports />} />
-          <Route path="/filling-report" />
+          <Route path="/filling-report" element={<FillingReport />} />
         </Routes>
       </main>
     </div>

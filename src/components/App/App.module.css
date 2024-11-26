@@ -34,15 +34,6 @@
   align-items: center;
   max-height: 80vh;
   max-width: 95vw;
-
-  .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px;
-    min-width: 50vw;
-    min-height: max-content;
-  }
 }
 
 @media (width < 769px) {

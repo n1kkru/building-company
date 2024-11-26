@@ -21,13 +21,7 @@ export const initialState: ReportsStateInterface = {
     email: "",
     date: "",
     status: "Ожидает",
-    object: {
-      id: 0,
-      address: "",
-      name: "",
-      date: "",
-      total: 0,
-    }
+    object: undefined
   },
   error: "",
 };
@@ -51,8 +45,6 @@ export const fetchPostReport = createAsyncThunk(
 export const updateReport = createAsyncThunk(
   "reports/updateReport",
   async function (report: TReport) {
-    console.log(report);
-        
     const res = await updateReportStatusApi(report);
     return res;
   }
@@ -77,14 +69,13 @@ const reportsSlice = createSlice({
     },
     addEmail: (state, action: PayloadAction<string>) => {
       state.formData.email = action.payload;
-      console.log(state.formData.title);
     },
     addDate: (state, action: PayloadAction<string>) => {
       state.formData.date = action.payload;
     },
     changeStatus: (state, action: PayloadAction<TStatus>) => {},
-    addObject: (state, action: PayloadAction<TObject>) => {
-      state.formData.object = action.payload;
+    addObject: (state, action: PayloadAction<TObject | undefined>) => {
+      state.formData.object = action?.payload;
     },
   },
   extraReducers: (builder) => {

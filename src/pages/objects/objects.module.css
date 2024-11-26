@@ -1,0 +1,16 @@
+.title {
+  padding-block-start: 10px;
+}
+
+.box {
+  display: flex;
+  margin-block: 25px;
+  background-color: #c8c8c8;
+  border-radius: 20px;
+  border: 0.1rem solid #1a1a96;
+  color: #1a1a96;
+  flex-direction: column;
+  align-items: center;
+  max-height: 80vh;
+  max-width: 95vw;
+}

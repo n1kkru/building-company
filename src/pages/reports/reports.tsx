@@ -66,7 +66,7 @@ export const Reports = () => {
   ];
 
   return (
-    <main className="main">
+    <>
       <Typography variant="h4" component="h2">
         Заявки
       </Typography>
@@ -84,6 +84,6 @@ export const Reports = () => {
         pageSizeOptions={[8]}
         disableRowSelectionOnClick
       />
-    </main>
+    </>
   );
 };
