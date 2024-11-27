@@ -52,10 +52,15 @@ export const fetchPostReport = createAsyncThunk(
   }
 );
 
+export type TUpdateStatus = {
+  id: number;
+  status: TStatus;
+}
+
 export const updateReport = createAsyncThunk(
   "reports/updateReport",
-  async function (report: TReport) {
-    const res = await updateReportStatusApi(report);
+  async function (data: TUpdateStatus) {
+    const res = await updateReportStatusApi(data);
     return res;
   }
 );

@@ -18,8 +18,6 @@ export const Login = () => {
   const isAuth = useSelector((state) => state.userReducers.isAuthCheck);
 
   /* рефы на поля */
-  const passRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -58,7 +56,6 @@ export const Login = () => {
       <form className={styles.form} name="login">
         <Input
           required
-          inputRef={emailRef}
           sx={{ padding: 2, width: "90%" }}
           type="email"
           name="email"
@@ -71,7 +68,6 @@ export const Login = () => {
         />
         <Input
           required
-          inputRef={passRef}
           sx={{ padding: 2, width: "90%" }}
           type="password"
           name="password"

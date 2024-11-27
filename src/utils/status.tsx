@@ -77,12 +77,7 @@ function EditStatus(props: GridRenderEditCellParams<any, string>) {
       console.log(">>> Изменен статус у элемента с ID:", event.target.value);
       distpatch(updateReport({
         id: thisRow.id,
-        title: thisRow.title,
-        text: thisRow.text,
-        email: thisRow.email,
         status: event.target.value as TStatus,
-        date: thisRow.date,
-        object: thisRow.objectName
       }))
     }
   };

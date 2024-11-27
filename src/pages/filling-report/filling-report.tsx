@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 export const FillingReport = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [object, setObject] = useState<TObject>();
+  const object = useSelector(state => state.reportsReducers.formData.object);
 
   /* рефы */
   const titleRef = useRef<HTMLInputElement>(null);
@@ -84,10 +84,7 @@ export const FillingReport = () => {
   
   const onReportClick = () => {
     dispatch(fetchPostReport(formData))
-    .then((data) =>  {
-      console.log('1',data);
-      dispatch(updateTotalReports(object!))
-    })
+    dispatch(updateTotalReports(object!))
   };
 
   const handlerAutocomplete = (e: SyntheticEvent) => {

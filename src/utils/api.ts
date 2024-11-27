@@ -1,3 +1,4 @@
+import { TUpdateStatus } from "../state/reportsSlice";
 import { TNewReport, TObject, TReport, TStatus, TUser } from "./types";
 
 const BASE_URL = "https://3ed8cab4c3743da5.mokky.dev";
@@ -96,13 +97,13 @@ export const getUserApi = () =>
     } as HeadersInit,
   }).then((data) => checkResponse<TUser>(data));
 
-export const updateReportStatusApi = (report: TReport) =>
-  fetch(`${BASE_URL}/reports/${report.id}`, {
+export const updateReportStatusApi = (data : TUpdateStatus) =>
+  fetch(`${BASE_URL}/reports/${data.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({...report})
+    body: JSON.stringify({status: data.status})
   })
   .then((res) => checkResponse<{}>(res))
     .then(res => console.log('updateReport > ',res));
