@@ -5,6 +5,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export interface ReportsStateInterface {
   isInit: boolean;
   isLoading: boolean;
+  reportPage: TNewReport | null;
   reports: TReport[];
   formData: TReport;
   error: string | null;
@@ -13,6 +14,7 @@ export interface ReportsStateInterface {
 export const initialState: ReportsStateInterface = {
   isInit: false,
   isLoading: false,
+  reportPage: null,
   reports: [],
   formData: {
     id: 0,
@@ -106,6 +108,8 @@ const reportsSlice = createSlice({
     builder.addCase(fetchPostReport.fulfilled, (state, action) => {
       // state.isLoading = false;
       // state.reportPage = action.payload  /* сохранять данные для страницы */
+      console.log(action.meta.arg);
+      
     });
     builder.addCase(fetchPostReport.rejected, (state, action) => {
       state.isLoading = false;
