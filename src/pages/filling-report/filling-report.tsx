@@ -55,7 +55,7 @@ export const FillingReport = () => {
     if (validationForm(formData) === true) {
       dispatch(fetchPostReport(formData));
       dispatch(updateTotalReports(object!));
-    }    
+    }
   };
 
   const handlerAutocomplete = (e: SyntheticEvent) => {

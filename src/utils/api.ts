@@ -21,6 +21,15 @@ export const getReportsApi = () =>
       return Promise.reject(data);
     });
 
+export const getReportByIdApi = (number : number) =>
+  fetch(`${BASE_URL}/reports/${number}`)
+    .then((res) => checkResponse<TReport>(res))
+    .then((data) => {
+      if (data) return data;
+      return Promise.reject(data);
+    });
+    
+
 export const postReportApi = (newReport: TNewReport) =>
   fetch(`${BASE_URL}/reports`, {
     method: "POST",

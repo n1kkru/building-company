@@ -20,9 +20,10 @@ export const STATUS_OPTIONS = ["Готово", "Ожидает", "Отклоне
 
 interface StatusProps {
   status: string;
+  bigSize? : boolean;
 }
 
-const StyledChip = styled(Chip)(({ theme }) => ({
+const StyledChip = styled(Chip)(() => ({
   justifyContent: "left",
   "&.Готово": {
     color: "green",
@@ -38,8 +39,8 @@ const StyledChip = styled(Chip)(({ theme }) => ({
   },
 }));
 
-const Status = React.memo((props: StatusProps) => {
-  const { status } = props;
+export const Status = React.memo((props: StatusProps) => {
+  const { status, bigSize } = props;
 
   let label: string = status;
   if (status === "Ожидает") {
@@ -49,7 +50,8 @@ const Status = React.memo((props: StatusProps) => {
   return (
     <StyledChip
       className={status}
-      size="small"
+      sx={bigSize ? {fontSize: "20px"} : {} }
+      size={"small"}
       label={label}
       variant="outlined"
     />

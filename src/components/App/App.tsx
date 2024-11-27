@@ -13,6 +13,7 @@ import { useDispatch } from "../../state/store";
 import { fetchGetObjects } from "../../state/objectsSlice";
 import { fetchGetReports } from "../../state/reportsSlice";
 import { getUserThunk } from "../../state/userSlice";
+import { ReportInfo } from "../../pages/report-info/report-info";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/objects" element={<Objects />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/reports/:number" element={<ReportInfo />} />
           <Route path="/filling-report" element={<FillingReport />} />
         </Routes>
       </main>

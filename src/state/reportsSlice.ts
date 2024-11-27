@@ -1,4 +1,4 @@
-import { getReportsApi, postReportApi, updateReportStatusApi } from "../utils/api";
+import { getReportByIdApi, getReportsApi, postReportApi, updateReportStatusApi } from "../utils/api";
 import { TNewReport, TObject, TReport, TStatus } from "../utils/types";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -30,6 +30,14 @@ export const fetchGetReports = createAsyncThunk(
   "reports/getReports",
   async function () {
     const res = await getReportsApi();
+    return res;
+  }
+);
+
+export const fetchGetReportById = createAsyncThunk(
+  "reports/getReport",
+  async function (number : number) {
+    const res = await getReportByIdApi(number);
     return res;
   }
 );
@@ -102,6 +110,10 @@ const reportsSlice = createSlice({
     builder.addCase(fetchPostReport.rejected, (state, action) => {
       state.isLoading = false;
       state.error = String(action.error.message);
+    });
+
+    builder.addCase(fetchGetReportById.fulfilled, (state, action : PayloadAction<TReport>) => {
+      state.formData = action?.payload;
     });
   },
 });
