@@ -24,6 +24,8 @@ export const Login = () => {
 
   useEffect(() => {
     setErrorText(error);
+    console.log(errorText);
+    
   }, [error]);
 
   useEffect(() => {
@@ -39,15 +41,15 @@ export const Login = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUserThunk({ email, password }));
+    dispatch(loginUserThunk({ email, password }))
   };
 
   return (
     <>
-      <Typography variant="h4" component="h2">
-        Вход
-      </Typography>
       <form className={styles.form} name="login">
+        <Typography variant="h4" component="h2">
+          Вход
+        </Typography>
         <Input
           required
           sx={{ padding: 2, width: "90%" }}
@@ -61,7 +63,19 @@ export const Login = () => {
         />
         <Input
           required
-          sx={{ padding: 2, width: "90%" }}
+          sx={{
+            padding: 2,
+            width: "90%",
+            "& .MuiFormLabel-root": {
+              color: "var(--text-color)",
+            },
+            "& #passwird-label": {
+              color: "var(--text-color)",
+            },
+            "& .MuiInputBase-root-MuiInput-root": {
+              "border-bottom": "2px solid var(--decor-color)",
+            },
+          }}
           type="password"
           name="password"
           placeholder="Пароль"
@@ -73,7 +87,11 @@ export const Login = () => {
         <Typography className={styles.error}>{errorText}</Typography>
         <Button
           ref={buttonRef}
-          sx={{ marginBlock: "35px", width: "90%" }}
+          sx={{
+            marginBlock: "35px",
+            width: "90%",
+            background: "var(--button-color)",
+          }}
           variant="contained"
           onClick={handleSubmit}
         >

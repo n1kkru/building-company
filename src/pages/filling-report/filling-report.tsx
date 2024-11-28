@@ -23,14 +23,10 @@ export const FillingReport = () => {
   }, []);
   const navigate = useNavigate();
   const userEmail = useSelector((state) => state.userReducers.user?.email);
-  
+
   const object = useSelector((state) => state.reportsReducers.formData.object);
 
   /* рефы */
-  const titleRef = useRef<HTMLInputElement>(null);
-  const textRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const autoRef = useRef<HTMLElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const objectsList: TObject[] = useSelector(
@@ -50,26 +46,15 @@ export const FillingReport = () => {
   const validationForm = (fields: TReport): boolean => {
     let valid = true;
     if (fields.title == "") {
-      // setError(titleRef);
       valid = false;
     }
     if (fields.text == "") {
-      // setError(textRef);
       valid = false;
     }
     if (fields.email == "") {
-      // setError(emailRef);
       valid = false;
     }
     if (fields.object === undefined) {
-      // autoRef.current?.children
-      //   .item(0)
-      //   ?.children.item(0)
-      //   ?.classList.add("Mui-error");
-      // autoRef.current?.children
-      //   .item(0)
-      //   ?.children.item(1)
-      //   ?.classList.add("Mui-error");
       valid = false;
     }
 
@@ -104,8 +89,20 @@ export const FillingReport = () => {
         </Typography>
         <TextField
           maxRows={1}
-          ref={titleRef}
-          sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
+          sx={{
+            maxWidth: "550px",
+            paddingBlockEnd: "15px",
+            width: "90%",
+            "& .MuiFormLabel-root": {
+              color: "var(--text-color)",
+            },
+            "& #title-label": {
+              color: "var(--text-color)",
+            },
+            "& .MuiInput-root::after": {
+              "border-bottom" : "2px solid var(--decor-color)",
+            },
+          }}
           id="title"
           label="Название"
           variant="standard"
@@ -123,8 +120,20 @@ export const FillingReport = () => {
           }}
         />
         <TextField
-          ref={textRef}
-          sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
+          sx={{
+            maxWidth: "550px",
+            paddingBlockEnd: "15px",
+            width: "90%",
+            "& .MuiFormLabel-root": {
+              color: "var(--text-color)",
+            },
+            "& #text-label": {
+              color: "var(--text-color)",
+            },
+            "& .MuiInput-root::after": {
+              "border-bottom" : "2px solid var(--decor-color)",
+            },
+          }}
           id="text"
           label="Опишите проблему"
           variant="standard"
@@ -135,8 +144,20 @@ export const FillingReport = () => {
           }}
         />
         <TextField
-          ref={emailRef}
-          sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
+          sx={{
+            maxWidth: "550px",
+            paddingBlockEnd: "15px",
+            width: "90%",
+            "& .MuiFormLabel-root": {
+              color: "var(--text-color)",
+            },
+            "& #email-label": {
+              color: "var(--text-color)",
+            },
+            "& .MuiInput-root::after": {
+              "border-bottom" : "2px solid var(--decor-color)",
+            },
+          }}
           id="email"
           label="Email"
           variant="standard"
@@ -146,8 +167,20 @@ export const FillingReport = () => {
           }}
         />
         <Autocomplete
-          ref={autoRef}
-          sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
+          sx={{
+            maxWidth: "550px",
+            paddingBlockEnd: "15px",
+            width: "90%",
+            "& .MuiFormLabel-root": {
+              color: "var(--text-color)",
+            },
+            "& #title-label": {
+              color: "var(--text-color)",
+            },
+            "&filedset": {
+              "border-color" : "var(--decor-color)",
+            },
+          }}
           disablePortal
           options={objectsList.map(
             (obj, key) => `${key + 1}. ${obj.name}. ${obj.address}`
@@ -157,7 +190,7 @@ export const FillingReport = () => {
         />
         <Button
           ref={buttonRef}
-          sx={{ marginBlockStart: "35px", width: "50%" }}
+          sx={{ marginBlockStart: "35px", width: "50%",  background: "var(--button-color)" }}
           variant="contained"
           onClick={onReportClick}
         >

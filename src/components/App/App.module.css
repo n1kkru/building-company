@@ -5,10 +5,10 @@
   align-items: center;
   box-sizing: border-box;
   height: 100vh;
-  padding: 10px;
+  padding-inline: 10px;
   overflow: hidden;
   text-align: center;
-  background-color: transparent;
+  background-color: var(--bg-color);
 }
 
 .app::before {
@@ -30,10 +30,10 @@
   max-width: 95vw;
   max-height: 80vh;
   margin-block: 25px;
-  border: 0.1rem solid #1a1a96;
+  border: 3px solid var(--shadow-color);
   border-radius: 20px;
-  color: #1a1a96;
-  background-color: #c8c8c8;
+  color: var(--text-color);
+  background-color: var(--box-color);
 }
 
 @media (width < 769px) {

@@ -82,6 +82,8 @@ export const userSlice = createSlice({
       state.isAuthCheck = false;
     });
     builder.addCase(loginUserThunk.rejected, (state) => {
+      console.log('неудачая');
+      
       state.isAuthCheck = false;  
       state.error = "Пользователь не найден"
       state.isLoading = false;

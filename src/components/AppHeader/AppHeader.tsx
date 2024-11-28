@@ -48,8 +48,13 @@ export function AppHeader() {
 
   return (
     <header className={styles.header}>
-      <Link href="/" underline="none" color="inherit">
-        <Typography sx={{ paddingInlineStart: 3 }} variant="h4" component="h1">
+      <Link
+        href="/"
+        underline="none"
+        color="var(--text-color)"
+        className={styles.logo}
+      >
+        <Typography variant="h4" component="h1">
           Строительная компания
         </Typography>
       </Link>
@@ -64,25 +69,22 @@ export function AppHeader() {
       >
         {isAuth && isManager && (
           <Link
-            sx={{ paddingInline: "30px 15px" }}
-            fontSize={"22px"}
-            color="#1a1a96"
+            className={styles.link}
+            fontSize="inherit"
+            color="inherit"
             href="/objects"
             underline="hover"
             variant="body1"
-            onClick={() => {
-              <Navigate to="/objects" />;
-            }}
           >
             Объекты
           </Link>
         )}
         {isAuth && isManager && (
           <Link
+            className={styles.link}
             href="/reports"
-            sx={{ paddingInline: "15px" }}
-            fontSize={"22px"}
-            color="#1a1a96"
+            fontSize="inherit"
+            color="inherit"
             underline="hover"
             variant="body1"
           >
@@ -93,7 +95,6 @@ export function AppHeader() {
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2 }}
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
@@ -103,16 +104,16 @@ export function AppHeader() {
                 width: 32,
                 height: 32,
                 bgcolor: "white",
-                border: "2px solid #1a1a96",
+                color: "var(--decor-color)",
+                border: "2px solid var(--decor-color)"
               }}
               src="/builder.png"
             ></Avatar>
           </IconButton>
         )}
-        {isAuth && !isMobile && name}
         {!isAuth && (
-          <Button variant="text">
-            <Link href="/login" underline="none" color="#1a1a96">
+          <Button variant="text" sx={{color:"var(--button-color)"}}>
+            <Link href="/login" underline="none" color="inherit"  >
               Войти
             </Link>
           </Button>
@@ -155,15 +156,15 @@ export function AppHeader() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Профиль
+        <MenuItem className={styles.item} onClick={handleClose}>
+          <Avatar src="/builder.png"/> {name}
         </MenuItem>
 
         <MenuItem onClick={handleUnAuth}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Выйти
         </MenuItem>
       </Menu>
     </header>

@@ -7,3 +7,12 @@
   width: 90vw;
   height: 90vh;
 }
+
+.grid {
+  border-radius: 20px;
+  border-color: var(--shadow-color);
+}
+
+.button {
+  color: var(--button-color);
+}

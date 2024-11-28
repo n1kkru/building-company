@@ -127,7 +127,14 @@ export const Objects = () => {
         Объекты
       </Typography>
       <DataGrid
-        sx={{ padding: 2, maxHeight: "80vh", maxWidth: "100%", border: "none" }}
+        className={styles.grid}
+        sx={{ 
+          maxHeight: "80vh", 
+          maxWidth: "100%",
+          "--DataGrid-containerBackground": "var(--bg-color)",
+          "& .MuiDataGrid-columnHeaderRow" : "background: red",
+          "& .MuiDataGrid-root .MuiDataGrid-container--top" : "background: green",
+         }}
         rows={objectsList}
         columns={columns}
         initialState={{

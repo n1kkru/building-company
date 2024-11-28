@@ -1,0 +1,10 @@
+:root {
+	--text-color: rgb(27 31 33 / 100%);
+	--bg-color: rgb(67 67 67 / 85%);
+	--box-color: rgb(188, 187, 187);
+	--shadow-color: rgb(174 174 174 / 100%);
+	--accent-color: rgb(161, 91, 26);
+	--button-color: rgb(199, 102, 37);
+	--decor-color: rgb(131, 61, 15);
+	--text-font: 400 18px 'Nunito', san-serif;
+}

@@ -13,3 +13,13 @@
   padding: 10px 30px 0;
   color: rgb(197, 23, 23);
 }
+
+.link {
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color 0.3s linear;
+}
+
+.link:hover {
+  color: var(--button-color);
+}
