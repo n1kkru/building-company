@@ -3,49 +3,45 @@ import React, { useEffect, useRef } from "react";
 import { SyntheticEvent, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-import styles from './login.module.css'
+import styles from "./login.module.css";
 
 import { loginUserThunk } from "../../state/userSlice";
 import { useDispatch, useSelector } from "../../state/store";
+import { regForMail, validationForm } from "../../utils/utils";
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  /* переменные */
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const errorText = useSelector(state => state.userReducers.error);
-  const ariaLabel = { "aria-label": "description" };
-  const navigate = useNavigate();
+  const [errorText, setErrorText] = useState<string | null>(null);
+  const error = useSelector((state) => state.userReducers.error);
   const isAuth = useSelector((state) => state.userReducers.isAuthCheck);
 
-  /* рефы на поля */
+  /* реф кнопки*/
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    if(isAuth) navigate('/');
-    if (validationForm({email, password})) {
-      buttonRef.current?.classList.remove('Mui-disabled');
-      buttonRef.current?.removeAttribute('disabled');
-    }
-    else {
-      buttonRef.current?.classList.add('Mui-disabled');
-      buttonRef.current?.setAttribute('disabled', 'true');
-    }
-  }, [isAuth, email, password])
 
-  const validationForm = (fields : {email: string, password: string}) : boolean => {
-    let valid = true;
-    if (fields.email == "") {
-      valid = false;
+
+  useEffect(() => {
+    setErrorText(error);
+  }, [error]);
+
+  useEffect(() => {
+    if (isAuth) navigate("/");
+    if (validationForm({ email, password, setErrorText })) {
+      buttonRef.current?.classList.remove("Mui-disabled");
+      buttonRef.current?.removeAttribute("disabled");
+    } else {
+      buttonRef.current?.classList.add("Mui-disabled");
+      buttonRef.current?.setAttribute("disabled", "true");
     }
-    else if (fields.password == "") {
-      valid = false;
-    }
-    return valid
-  }
+  }, [isAuth, email, password]);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUserThunk({ email, password }))
+    dispatch(loginUserThunk({ email, password }));
   };
 
   return (
@@ -60,7 +56,6 @@ export const Login = () => {
           type="email"
           name="email"
           placeholder="E-mail"
-          inputProps={ariaLabel}
           onChange={(e) => {
             setEmail(e.target.value);
           }}
@@ -72,17 +67,12 @@ export const Login = () => {
           type="password"
           name="password"
           placeholder="Пароль"
-          inputProps={ariaLabel}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
           size="medium"
         />
-        {errorText && (
-          <Typography className={styles.error} >
-            {errorText}
-          </Typography>
-        )}
+        <Typography className={styles.error}>{errorText}</Typography>
         <Button
           ref={buttonRef}
           sx={{ marginBlock: "35px", width: "90%" }}
@@ -92,7 +82,9 @@ export const Login = () => {
           Войти
         </Button>
 
-        <Link className={styles.link} to="/register">Зарегистрироваться</Link>
+        <Link className={styles.link} to="/register">
+          Зарегистрироваться
+        </Link>
       </form>
     </>
   );

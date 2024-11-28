@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "../../state/store";
 import { registerUserThunk } from "../../state/userSlice";
 
 import styles from "./register.module.css";
+import { regForMail, validationForm } from "../../utils/utils";
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -19,42 +20,10 @@ export const Register = () => {
   const isRegCheck = useSelector((state) => state.userReducers.isRegCheck);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const validationForm = (fields: {
-    name: string;
-    email: string;
-    password: string;
-    passwordCheck: string;
-  }): boolean => {
-    let valid = true;
-    let regex =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (fields.email == "") {   
-      valid = false;
-    } 
-    else if (!regex.test(fields.email)) {
-      setErrorText("Введите корректный email");
-      valid = false;
-    } 
-    else if (fields.password == "") {
-      valid = false;
-    } 
-    else if (fields.passwordCheck == "") {
-      valid = false;
-    }
-    else if (fields.password !== fields.passwordCheck) {
-      setErrorText("Пароли не совпадают");
-      valid = false;
-    }
-    return valid;
-  };
-
   useEffect(() => {
-    console.log(">>>", errorText);
-    
-    if (validationForm({ name, email, password, passwordCheck })) {
+    if (validationForm({ name, email, password, passwordCheck, setErrorText })) {
       buttonRef.current?.classList.remove("Mui-disabled");
       buttonRef.current?.removeAttribute("disabled");
-      setErrorText(null);
     } else {
       buttonRef.current?.classList.add("Mui-disabled");
       buttonRef.current?.setAttribute("disabled", "true");
@@ -63,7 +32,7 @@ export const Register = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(registerUserThunk({ name, email, password })).then(() =>
+    dispatch(registerUserThunk({ name, email, password, isManager: false })).then(() =>
       navigate("/login")
     );
   };

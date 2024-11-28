@@ -22,14 +22,13 @@ export const getReportsApi = () =>
       return Promise.reject(data);
     });
 
-export const getReportByIdApi = (number : number) =>
+export const getReportByIdApi = (number: number) =>
   fetch(`${BASE_URL}/reports/${number}`)
     .then((res) => checkResponse<TReport>(res))
     .then((data) => {
       if (data) return data;
       return Promise.reject(data);
     });
-    
 
 export const postReportApi = (newReport: TNewReport) =>
   fetch(`${BASE_URL}/reports`, {
@@ -97,26 +96,20 @@ export const getUserApi = () =>
     } as HeadersInit,
   }).then((data) => checkResponse<TUser>(data));
 
-export const updateReportStatusApi = (data : TUpdateStatus) =>
+export const updateReportStatusApi = (data: TUpdateStatus) =>
   fetch(`${BASE_URL}/reports/${data.id}`, {
-    method: 'PATCH',
+    method: "PATCH",
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      "Content-Type": "application/json;charset=utf-8",
     },
-    body: JSON.stringify({status: data.status})
-  })
-  .then((res) => checkResponse<{}>(res))
-    .then(res => console.log('updateReport > ',res));
+    body: JSON.stringify({ status: data.status }),
+  }).then((res) => checkResponse<{}>(res));
 
-    
 export const updateObjectTotalApi = (object: TObject) =>
   fetch(`${BASE_URL}/objects/${object.id}`, {
-    method: 'PATCH',
+    method: "PATCH",
     headers: {
-      'Content-Type': 'application/json;charset=utf-8'
+      "Content-Type": "application/json;charset=utf-8",
     },
-    body: JSON.stringify({...object, total: object.total + 1})
-  })
-  .then((res) => checkResponse<{}>(res))
-    .then(res => console.log('updateObject > ',res));
-  
+    body: JSON.stringify({ ...object, total: object.total + 1 }),
+  }).then((res) => checkResponse<{}>(res));

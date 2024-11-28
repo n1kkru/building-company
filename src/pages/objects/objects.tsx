@@ -2,15 +2,22 @@ import { Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 import { TObject } from "../../utils/types";
-import { useSelector } from "../../state/store";
+import { useDispatch, useSelector } from "../../state/store";
 
 import styles from './objects.module.css'
+import { useEffect } from "react";
+import { fetchGetObjects } from "../../state/objectsSlice";
 
 export const Objects = () => {
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchGetObjects());
+  }, []);
+
   const objectsList: TObject[] = useSelector(
     (state) => state.objectReducers.objects
   );
-  // const isLoading : boolean = useSelector(getIsLoading)
 
   const mocky = [
     {

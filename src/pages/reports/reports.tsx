@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -8,10 +8,16 @@ import {
   renderStatus,
   STATUS_OPTIONS,
 } from "../../utils/status";
-import { useSelector } from "../../state/store";
+import { useDispatch, useSelector } from "../../state/store";
 import { TReport } from "../../utils/types";
+import { fetchGetReports } from "../../state/reportsSlice";
 
 export const Reports = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchGetReports());
+  }, []);
+
   const reportsList = useSelector((store) => store.reportsReducers.reports);
   const newReportsList = reportsList.map((rep : TReport) => { return {
       id: rep.id, 

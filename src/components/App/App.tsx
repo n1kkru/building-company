@@ -14,12 +14,13 @@ import { fetchGetObjects } from "../../state/objectsSlice";
 import { fetchGetReports } from "../../state/reportsSlice";
 import { getUserThunk } from "../../state/userSlice";
 import { ReportInfo } from "../../pages/report-info/report-info";
+import { OnlyManager, OnlyUnAuth } from "../Protect-Router/protect-router";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchGetObjects());
-    dispatch(fetchGetReports());
+    // dispatch(fetchGetObjects());
+    // dispatch(fetchGetReports());
     dispatch(getUserThunk());
   }, []);
 
@@ -29,10 +30,10 @@ function App() {
       <main className={styles.main}>
         <Routes>
           <Route path="/" element={<FillingReport />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/objects" element={<Objects />} />
-          <Route path="/reports" element={<Reports />} />
+          <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
+          <Route path="/register" element={<OnlyUnAuth component={<Register />} />} />
+          <Route path="/objects" element={<OnlyManager component={<Objects />} />} />
+          <Route path="/reports" element={<OnlyManager component={<Reports />} />} />
           <Route path="/reports/:number" element={<ReportInfo />} />
           <Route path="/filling-report" element={<FillingReport />} />
         </Routes>

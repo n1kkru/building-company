@@ -33,6 +33,7 @@ export const getUserThunk = createAsyncThunk(
         .then((data) => {
           dispatch(setUser(data));
           dispatch(setAuthCkeck(true));
+
         })
         .catch((res) => {
           localStorage.removeItem("accessToken");
@@ -53,7 +54,7 @@ export interface UserState {
 const initialState: UserState = {
   isRegCheck: false,
   isAuthCheck: false,
-  isLoading: false,
+  isLoading: true,
   isManager: false,
   user: null,
   error: null,
@@ -91,6 +92,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.data;
         state.isAuthCheck = true;
+        state.isManager = action.payload.data.isManager
       }
     );
 
@@ -115,6 +117,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(getUserThunk.fulfilled, (state) => {
       state.isLoading = false;
+      // state.isManager = action.payload.data.isManager;
     });
   },
 });
