@@ -1,19 +1,27 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 import { TObject } from "../../utils/types";
 import { useDispatch, useSelector } from "../../state/store";
 
-import styles from './objects.module.css'
-import { useEffect } from "react";
+import styles from "./objects.module.css";
+import { useEffect, useState } from "react";
 import { fetchGetObjects } from "../../state/objectsSlice";
+import { Modal } from "../../components/Modal/modal";
 
 export const Objects = () => {
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchGetObjects());
   }, []);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handlerClick = () => {
+    setModalIsOpen(true);
+  };
+  const handlerClose = () => {
+    setModalIsOpen(false);
+  };
 
   const objectsList: TObject[] = useSelector(
     (state) => state.objectReducers.objects
@@ -86,7 +94,7 @@ export const Objects = () => {
   ];
 
   const columns: GridColDef<(typeof objectsList)[number]>[] = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 50 },
     {
       field: "name",
       headerName: "Название",
@@ -109,7 +117,7 @@ export const Objects = () => {
       field: "total",
       headerName: "Заявок",
       type: "number",
-      width: 150,
+      width: 80,
     },
   ];
 
@@ -125,13 +133,19 @@ export const Objects = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 8,
+              pageSize: 5,
             },
           },
         }}
         pageSizeOptions={[8]}
         disableRowSelectionOnClick
       />
+      <Button className={styles.button} onClick={handlerClick}>
+        Создать объект
+      </Button>
+      {modalIsOpen && (
+        <Modal onClose={handlerClose} title={"Создать объект"} />
+      )}
     </>
   );
 };

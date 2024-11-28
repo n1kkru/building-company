@@ -1,12 +1,13 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { getObjectsApi, updateObjectTotalApi } from "../utils/api";
-import { TObject } from "../utils/types";
+import { getObjectsApi, postObjectApi, updateObjectTotalApi } from "../utils/api";
+import { TNewObject, TObject } from "../utils/types";
 
 export interface ObjectsStateInterface {
   isInit: boolean;
   isLoading: boolean;
   objects: TObject[];
+  newObject: TNewObject | null;
   error: string | null;
 }
 
@@ -14,6 +15,7 @@ export const initialState: ObjectsStateInterface = {
   isInit: false,
   isLoading: false,
   objects: [],
+  newObject: null,
   error: "",
 };
 
@@ -21,6 +23,16 @@ export const fetchGetObjects = createAsyncThunk(
   "objects/getObjects",
   async function () {
     const res = await getObjectsApi();
+    return res;
+  }
+);
+
+export const fetchPostObject = createAsyncThunk(
+  "objects/postObject",
+  async function (object: TNewObject) {
+    console.log(object);
+    
+    const res = await postObjectApi(object);
     return res;
   }
 );
@@ -42,9 +54,6 @@ const objectsSlice = createSlice({
     },
     addObjects: (state, action: PayloadAction<TObject>) => {
       state.objects.push(action.payload);
-    },
-    coutReports: (state, action: PayloadAction<TObject>) => {
-      state.objects.find((obj) => obj.id === action.payload.id)
     }
   },
   extraReducers: (builder) => {

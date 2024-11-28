@@ -11,15 +11,20 @@ import {
 } from "../../state/reportsSlice";
 import { useDispatch, useSelector } from "../../state/store";
 import { TObject, TReport } from "../../utils/types";
-import { updateTotalReports } from "../../state/objectsSlice";
+import { fetchGetObjects, updateTotalReports } from "../../state/objectsSlice";
 
 import styles from "./filling-report.module.css";
 import { useNavigate } from "react-router-dom";
 
 export const FillingReport = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchGetObjects());
+  }, []);
   const navigate = useNavigate();
-  const object = useSelector(state => state.reportsReducers.formData.object);
+  const userEmail = useSelector((state) => state.userReducers.user?.email);
+  
+  const object = useSelector((state) => state.reportsReducers.formData.object);
 
   /* рефы */
   const titleRef = useRef<HTMLInputElement>(null);
@@ -73,26 +78,23 @@ export const FillingReport = () => {
 
   useEffect(() => {
     if (validationForm(formData)) {
-      buttonRef.current?.classList.remove('Mui-disabled');
-      buttonRef.current?.removeAttribute('disabled');
+      buttonRef.current?.classList.remove("Mui-disabled");
+      buttonRef.current?.removeAttribute("disabled");
+    } else {
+      buttonRef.current?.classList.add("Mui-disabled");
+      buttonRef.current?.setAttribute("disabled", "true");
     }
-    else {
-      buttonRef.current?.classList.add('Mui-disabled');
-      buttonRef.current?.setAttribute('disabled', 'true');
-    }
-  }, [formData])
-  
+  }, [formData]);
+
   const onReportClick = () => {
-    dispatch(fetchPostReport(formData))
-    dispatch(updateTotalReports(object!))
+    dispatch(fetchPostReport(formData));
+    dispatch(updateTotalReports(object!));
   };
 
   const handlerAutocomplete = (e: SyntheticEvent) => {
     const index = e.currentTarget.textContent?.split(".")[0];
     dispatch(addObject(objectsList.find((obj) => obj.id == Number(index))));
   };
-
-  const clearForm = () => {};
 
   return (
     <>
@@ -138,7 +140,7 @@ export const FillingReport = () => {
           id="email"
           label="Email"
           variant="standard"
-          // defaultValue={`${userEmail}`}
+          defaultValue={userEmail && `${userEmail}`}
           onBlur={(e) => {
             dispatch(addEmail(e.target.value));
           }}

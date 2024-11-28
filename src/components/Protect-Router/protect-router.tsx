@@ -13,12 +13,9 @@ const ProtectedRoute = ({onlyUnAuth = false, component}: TProtectedRoute) => {
   const isLoading = useSelector((state) => state.userReducers.isLoading);
   const isManager = useSelector((state) => state.userReducers.user?.isManager);
   const location = useLocation();
-  console.log(!onlyUnAuth, !isManager);
   
   // если идет загрузка или не проверена авторизация
   if (isLoading) {
-    console.log('isload');
-    
     return <div/>
   }
 
@@ -29,8 +26,6 @@ const ProtectedRoute = ({onlyUnAuth = false, component}: TProtectedRoute) => {
   
   // если юзер авторизирован но это ДЛЯ МЕНЕДЖЕРА
   if ( !onlyUnAuth && !isManager) {
-    console.log('перекинул на login');
-    
     return <Navigate to="/login"/>;
   }
 

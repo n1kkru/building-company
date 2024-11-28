@@ -19,8 +19,6 @@ import { OnlyManager, OnlyUnAuth } from "../Protect-Router/protect-router";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(fetchGetObjects());
-    // dispatch(fetchGetReports());
     dispatch(getUserThunk());
   }, []);
 
@@ -31,9 +29,18 @@ function App() {
         <Routes>
           <Route path="/" element={<FillingReport />} />
           <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
-          <Route path="/register" element={<OnlyUnAuth component={<Register />} />} />
-          <Route path="/objects" element={<OnlyManager component={<Objects />} />} />
-          <Route path="/reports" element={<OnlyManager component={<Reports />} />} />
+          <Route
+            path="/register"
+            element={<OnlyUnAuth component={<Register />} />}
+          />
+          <Route
+            path="/objects"
+            element={<OnlyManager component={<Objects />} />}
+          />
+          <Route
+            path="/reports"
+            element={<OnlyManager component={<Reports />} />}
+          />
           <Route path="/reports/:number" element={<ReportInfo />} />
           <Route path="/filling-report" element={<FillingReport />} />
         </Routes>

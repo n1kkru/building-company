@@ -22,8 +22,6 @@ export const Login = () => {
   /* реф кнопки*/
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-
-
   useEffect(() => {
     setErrorText(error);
   }, [error]);

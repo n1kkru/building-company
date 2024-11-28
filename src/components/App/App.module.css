@@ -1,39 +1,39 @@
 .app {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  text-align: center;
-  background-color: transparent;
   height: 100vh;
   padding: 10px;
-  position: relative;
   overflow: hidden;
+  text-align: center;
+  background-color: transparent;
 }
 
 .app::before {
   content: "";
-  top: 0;
-  height: 100vh;
-  width: 100%;
   position: absolute;
-  background-image: url("/public/i.webp");
-  background-size: cover;
-  background-repeat: no-repeat;
+  top: 0;
   z-index: -1;
+  width: 100%;
+  height: 100vh;
+  background-image: url("/public/i.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .main {
   display: flex;
-  margin-block: 25px;
-  background-color: #c8c8c8;
-  border-radius: 20px;
-  border: 0.1rem solid #1a1a96;
-  color: #1a1a96;
   flex-direction: column;
   align-items: center;
-  max-height: 80vh;
   max-width: 95vw;
+  max-height: 80vh;
+  margin-block: 25px;
+  border: 0.1rem solid #1a1a96;
+  border-radius: 20px;
+  color: #1a1a96;
+  background-color: #c8c8c8;
 }
 
 @media (width < 769px) {
@@ -47,5 +47,4 @@
     height: 150vh;
     background-size: cover;
   }
-  
 }

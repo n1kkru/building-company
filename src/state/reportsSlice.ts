@@ -88,7 +88,6 @@ const reportsSlice = createSlice({
     addDate: (state, action: PayloadAction<string>) => {
       state.formData.date = action.payload;
     },
-    changeStatus: (state, action: PayloadAction<TStatus>) => {},
     addObject: (state, action: PayloadAction<TObject | undefined>) => {
       state.formData.object = action?.payload;
     },
@@ -114,7 +113,6 @@ const reportsSlice = createSlice({
       // state.isLoading = false;
       // state.reportPage = action.payload  /* сохранять данные для страницы */
       console.log(action.meta.arg);
-      
     });
     builder.addCase(fetchPostReport.rejected, (state, action) => {
       state.isLoading = false;

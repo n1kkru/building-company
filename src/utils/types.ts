@@ -13,12 +13,15 @@ export type TReport = {
   id: number;
 } & TNewReport;
 
-export type TObject = {
-  id: number;
+export type TNewObject = {
   address: string;
   name: string;
   date: string;
+};
+
+export type TObject = TNewObject & {
   total: number;
+  id: number;
 };
 
 export type TUser = {
@@ -36,5 +39,4 @@ export type TGridReports = {
   date: string;
   status: TStatus;
   objectName: string;
-}
-
+};

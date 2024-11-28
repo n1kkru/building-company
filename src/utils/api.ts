@@ -1,5 +1,5 @@
 import { TUpdateStatus } from "../state/reportsSlice";
-import { TNewReport, TObject, TReport, TStatus, TUser } from "./types";
+import { TNewObject, TNewReport, TObject, TReport, TStatus, TUser } from "./types";
 
 const BASE_URL = "https://3ed8cab4c3743da5.mokky.dev";
 
@@ -38,6 +38,21 @@ export const postReportApi = (newReport: TNewReport) =>
     },
     body: JSON.stringify({
       ...newReport,
+    }),
+  }).then((data) => {
+    if (data) return data;
+    return Promise.reject(data);
+  });
+
+export const postObjectApi = (newObject: TNewObject) =>
+  fetch(`${BASE_URL}/objects`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify({
+      ...newObject,
+      total: 0,
     }),
   }).then((data) => {
     if (data) return data;
