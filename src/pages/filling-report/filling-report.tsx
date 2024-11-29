@@ -15,6 +15,7 @@ import { fetchGetObjects, updateTotalReports } from "../../state/objectsSlice";
 
 import styles from "./filling-report.module.css";
 import { useNavigate } from "react-router-dom";
+import { validationReportForm } from "../../utils/utils";
 
 export const FillingReport = () => {
   const dispatch = useDispatch();
@@ -22,11 +23,11 @@ export const FillingReport = () => {
     dispatch(fetchGetObjects());
   }, []);
   const navigate = useNavigate();
+
   const userEmail = useSelector((state) => state.userReducers.user?.email);
-
   const object = useSelector((state) => state.reportsReducers.formData.object);
+  const [errorText, setErrorText] = useState<string | null>(null);
 
-  /* рефы */
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const objectsList: TObject[] = useSelector(
@@ -37,32 +38,8 @@ export const FillingReport = () => {
   );
   const date = new Date();
 
-  /* функция для подсветки пустых полей */
-  const setError = (ref: React.RefObject<HTMLInputElement>) => {
-    ref.current?.children.item(0)?.classList.add("Mui-error");
-    ref.current?.children.item(1)?.classList.add("Mui-error");
-  };
-
-  const validationForm = (fields: TReport): boolean => {
-    let valid = true;
-    if (fields.title == "") {
-      valid = false;
-    }
-    if (fields.text == "") {
-      valid = false;
-    }
-    if (fields.email == "") {
-      valid = false;
-    }
-    if (fields.object === undefined) {
-      valid = false;
-    }
-
-    return valid;
-  };
-
   useEffect(() => {
-    if (validationForm(formData)) {
+    if (validationReportForm({fields: formData, setErrorText})) {
       buttonRef.current?.classList.remove("Mui-disabled");
       buttonRef.current?.removeAttribute("disabled");
     } else {
@@ -188,6 +165,7 @@ export const FillingReport = () => {
           onChange={handlerAutocomplete}
           renderInput={(params) => <TextField {...params} label="Объект" />}
         />
+        <Typography className={styles.error}>{errorText}</Typography>
         <Button
           ref={buttonRef}
           sx={{ marginBlockStart: "35px", width: "50%",  background: "var(--button-color)" }}

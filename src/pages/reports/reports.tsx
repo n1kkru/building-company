@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import styles from './reports.module.css'
 import { Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
@@ -77,7 +77,14 @@ export const Reports = () => {
         Заявки
       </Typography>
       <DataGrid
-        sx={{ padding: 2, maxHeight: "80vh", maxWidth: "100%", border: "none" }}
+        className={styles.grid}
+        sx={{ 
+          maxHeight: "80vh", 
+          maxWidth: "100%",
+          borderRadius: "20px",
+          borderColor: "var(--shadow-color)",
+          "--DataGrid-containerBackground": "var(--bg-color)",
+         }}
         rows={newReportsList}
         columns={columns}
         initialState={{

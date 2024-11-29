@@ -24,8 +24,6 @@ export const Login = () => {
 
   useEffect(() => {
     setErrorText(error);
-    console.log(errorText);
-    
   }, [error]);
 
   useEffect(() => {
@@ -84,7 +82,16 @@ export const Login = () => {
           }}
           size="medium"
         />
-        <Typography className={styles.error}>{errorText}</Typography>
+        <Typography 
+          sx={{
+            '& .MuiTypography-root' : {
+              'font-size' : '10px',
+            },
+          }} 
+          className={styles.error}
+        >
+            {errorText}
+        </Typography>
         <Button
           ref={buttonRef}
           sx={{

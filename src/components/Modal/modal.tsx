@@ -55,18 +55,39 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
           <Typography variant="h4" component="h2" className={styles.title}>
             {title}
           </Typography>
-          <button
+          <Button
             className={styles.buttonClose}
+            sx={{
+              color : "var(--text-color)",
+              width: "24px",
+              height: "24px",
+              padding: "0",
+              "margin-left": "auto",
+              border: "0.5px solid var(--shadow-color)",
+            }}
             type="button"
             onClick={onCloseModal}
           >
             X
-          </button>
+          </Button>
         </div>
         <div className={styles.content}>
           <form className={styles.form}>
             <TextField
-              sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
+              sx={{             
+                maxWidth: "550px",
+                paddingBlockEnd: "15px",
+                width: "90%",
+                "& .MuiFormLabel-root": {
+                  color: "var(--text-color)",
+                },
+                "& #name-label": {
+                  color: "var(--text-color)",
+                },
+                "& .MuiInput-root::after": {
+                  "border-bottom" : "2px solid var(--decor-color)",
+                }
+              }}
               id="name"
               label="Название"
               variant="standard"
@@ -76,7 +97,20 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
               }}
             />
             <TextField
-              sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
+              sx={{             
+                maxWidth: "550px",
+                paddingBlockEnd: "15px",
+                width: "90%",
+                "& .MuiFormLabel-root": {
+                  color: "var(--text-color)",
+                },
+                "& #address-label": {
+                  color: "var(--text-color)",
+                },
+                "& .MuiInput-root::after": {
+                  "border-bottom" : "2px solid var(--decor-color)",
+                }
+              }}
               id="address"
               label="Адрес"
               variant="standard"
@@ -84,8 +118,21 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
                 setAddress(e.target.value);
               }}
             />
-            <TextField
-              sx={{ maxWidth: "550px", paddingBlockEnd: "15px", width: "90%" }}
+            <TextField              
+              sx={{             
+                maxWidth: "550px",
+                paddingBlockEnd: "15px",
+                width: "90%",
+                "& .MuiFormLabel-root": {
+                  color: "var(--text-color)",
+                },
+                "& #date-label": {
+                  color: "var(--text-color)",
+                },
+                "& .MuiInput-root::after": {
+                  "border-bottom" : "2px solid var(--decor-color)",
+                }
+              }}
               id="date"
               label="Дата"
               variant="standard"
@@ -96,7 +143,7 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
             <Button
               ref={buttonRef}
               type="submit"
-              sx={{ marginBlockStart: "35px", width: "50%" }}
+              sx={{ marginBlockStart: "35px", width: "50%",  background: "var(--button-color)" }}
               variant="contained"
               onClick={handlerCreate}
             >

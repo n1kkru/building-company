@@ -9,7 +9,7 @@
 }
 
 .grid {
-  border-radius: 20px;
+  margin: 5px;
   border-color: var(--shadow-color);
 }
 

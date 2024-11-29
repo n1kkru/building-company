@@ -6,3 +6,10 @@
   min-width: 50vw;
   min-height: max-content;
 }
+
+.error {
+  max-width:  50%;
+  align-self: center;
+  padding: 10px 30px 0;
+  color: rgb(197, 23, 23);
+}

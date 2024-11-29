@@ -128,13 +128,13 @@ export const Objects = () => {
       </Typography>
       <DataGrid
         className={styles.grid}
-        sx={{ 
-          maxHeight: "80vh", 
+        sx={{
+          maxHeight: "80vh",
           maxWidth: "100%",
+          borderRadius: "20px",
+          borderColor: "var(--shadow-color)",
           "--DataGrid-containerBackground": "var(--bg-color)",
-          "& .MuiDataGrid-columnHeaderRow" : "background: red",
-          "& .MuiDataGrid-root .MuiDataGrid-container--top" : "background: green",
-         }}
+        }}
         rows={objectsList}
         columns={columns}
         initialState={{
@@ -144,15 +144,17 @@ export const Objects = () => {
             },
           },
         }}
-        pageSizeOptions={[8]}
+        pageSizeOptions={[5]}
         disableRowSelectionOnClick
       />
-      <Button className={styles.button} onClick={handlerClick}>
+      <Button
+        sx={{color: "var(--button-color)"}}
+        className={styles.button} 
+        onClick={handlerClick}
+        >
         Создать объект
       </Button>
-      {modalIsOpen && (
-        <Modal onClose={handlerClose} title={"Создать объект"} />
-      )}
+      {modalIsOpen && <Modal onClose={handlerClose} title={"Создать объект"} />}
     </>
   );
 };

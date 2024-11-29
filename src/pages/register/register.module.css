@@ -13,3 +13,11 @@
   padding: 10px 30px 0;
   color: rgb(197, 23, 23);
 }
+
+@media (width <= 769px) {
+  .error {
+    font-size: 10px;
+    align-self: center;
+    padding: 0;
+  }
+}

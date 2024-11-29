@@ -44,7 +44,7 @@
 
 @media (height >=661px) {
   .app::before {
-    height: 150vh;
+    height: 100vh;
     background-size: cover;
   }
 }
