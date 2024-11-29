@@ -7,6 +7,7 @@ export type TNewReport = {
   date: string;
   status: TStatus;
   object: TObject | undefined;
+  fileId?: number;
 };
 
 export type TReport = {
@@ -40,3 +41,8 @@ export type TGridReports = {
   status: TStatus;
   objectName: string;
 };
+
+export type TFileResponse = {
+  id: number,
+  url: string
+}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styles from './reports.module.css'
+import styles from "./reports.module.css";
 import { Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "../../state/store";
 import { TReport } from "../../utils/types";
 import { fetchGetReports } from "../../state/reportsSlice";
+import { renderFiles } from "../../utils/linkFile";
 
 export const Reports = () => {
   const dispatch = useDispatch();
@@ -19,16 +20,20 @@ export const Reports = () => {
   }, []);
 
   const reportsList = useSelector((store) => store.reportsReducers.reports);
-  const newReportsList = reportsList.map((rep : TReport) => { return {
-      id: rep.id, 
-      title: rep.title, 
-      text: rep.text, 
-      date: rep.date, 
-      status: rep.status, 
-      email: rep.email, 
-      objectName: rep.object?.name 
-    } 
-  })
+  const filesList = reportsList.filter((el) => el.fileId);
+
+  const newReportsList = reportsList.map((rep: TReport) => {
+    return {
+      id: rep.id,
+      title: rep.title,
+      text: rep.text,
+      date: rep.date,
+      status: rep.status,
+      email: rep.email,
+      objectName: rep.object?.name,
+      file: rep.fileId ? rep.fileId : "",
+    };
+  });
 
   const columns: GridColDef<(typeof newReportsList)[number]>[] = [
     { field: "id", headerName: "ID", width: 40 },
@@ -69,6 +74,13 @@ export const Reports = () => {
       type: "string",
       width: 120,
     },
+    {
+      field: "file",
+      renderCell: renderFiles,
+      headerName: "Файл",
+      type: "string",
+      width: 120,
+    },
   ];
 
   return (
@@ -78,13 +90,13 @@ export const Reports = () => {
       </Typography>
       <DataGrid
         className={styles.grid}
-        sx={{ 
-          maxHeight: "80vh", 
+        sx={{
+          maxHeight: "80vh",
           maxWidth: "100%",
           borderRadius: "20px",
           borderColor: "var(--shadow-color)",
           "--DataGrid-containerBackground": "var(--bg-color)",
-         }}
+        }}
         rows={newReportsList}
         columns={columns}
         initialState={{

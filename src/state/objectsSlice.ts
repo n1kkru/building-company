@@ -69,12 +69,8 @@ const objectsSlice = createSlice({
       state.isLoading = false;
       state.error = String(action.error.message);
     });
-  },
-  selectors: {
-    getIsLoading: (state) => state.isLoading,
-  },
+  }
 });
 
-export const { getIsLoading } = objectsSlice.selectors;
 export const { init, addObjects } = objectsSlice.actions;
 export default objectsSlice.reducer;

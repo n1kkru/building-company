@@ -13,3 +13,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.MuiAutocomplete-root.Mui-focused {
+  border-color : var(--decor-color),
+}
+
+.MuiAutocomplete-root.Mui-expanded {
+  border-color : var(--decor-color),
+}
+
+.MuiOutlinedInput-root.Mui-expanded {
+  border-color : var(--decor-color),
+}

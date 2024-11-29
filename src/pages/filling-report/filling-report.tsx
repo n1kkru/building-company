@@ -1,5 +1,17 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { TextField, Typography, Button, Autocomplete } from "@mui/material";
+import React, {
+  ChangeEvent,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import {
+  TextField,
+  Typography,
+  Button,
+  Autocomplete,
+  Input,
+} from "@mui/material";
 
 import {
   addDate,
@@ -7,6 +19,7 @@ import {
   addObject,
   addText,
   addTitle,
+  fetchPostFiles,
   fetchPostReport,
 } from "../../state/reportsSlice";
 import { useDispatch, useSelector } from "../../state/store";
@@ -16,6 +29,7 @@ import { fetchGetObjects, updateTotalReports } from "../../state/objectsSlice";
 import styles from "./filling-report.module.css";
 import { useNavigate } from "react-router-dom";
 import { validationReportForm } from "../../utils/utils";
+import InputFileUpload from "../../components/InputFileUpload/input-file-upload";
 
 export const FillingReport = () => {
   const dispatch = useDispatch();
@@ -27,6 +41,7 @@ export const FillingReport = () => {
   const userEmail = useSelector((state) => state.userReducers.user?.email);
   const object = useSelector((state) => state.reportsReducers.formData.object);
   const [errorText, setErrorText] = useState<string | null>(null);
+  const [files, setFiles] = React.useState<FileList | null>(null);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -39,7 +54,7 @@ export const FillingReport = () => {
   const date = new Date();
 
   useEffect(() => {
-    if (validationReportForm({fields: formData, setErrorText})) {
+    if (validationReportForm({ fields: formData, setErrorText })) {
       buttonRef.current?.classList.remove("Mui-disabled");
       buttonRef.current?.removeAttribute("disabled");
     } else {
@@ -49,13 +64,23 @@ export const FillingReport = () => {
   }, [formData]);
 
   const onReportClick = () => {
-    dispatch(fetchPostReport(formData));
+    if (files) {
+      dispatch(fetchPostFiles(files)).then((res) => {
+        dispatch(fetchPostReport({ ...formData, fileId: res.payload?.id }));
+      });
+    } else {
+      dispatch(fetchPostReport(formData));
+    }
     dispatch(updateTotalReports(object!));
   };
 
   const handlerAutocomplete = (e: SyntheticEvent) => {
     const index = e.currentTarget.textContent?.split(".")[0];
     dispatch(addObject(objectsList.find((obj) => obj.id == Number(index))));
+  };
+
+  const uploadFile = (e: ChangeEvent<HTMLInputElement>) => {
+    setFiles(e.target.files);
   };
 
   return (
@@ -77,7 +102,7 @@ export const FillingReport = () => {
               color: "var(--text-color)",
             },
             "& .MuiInput-root::after": {
-              "border-bottom" : "2px solid var(--decor-color)",
+              borderBottom: "2px solid var(--decor-color)",
             },
           }}
           id="title"
@@ -108,7 +133,7 @@ export const FillingReport = () => {
               color: "var(--text-color)",
             },
             "& .MuiInput-root::after": {
-              "border-bottom" : "2px solid var(--decor-color)",
+              borderBottom: "2px solid var(--decor-color)",
             },
           }}
           id="text"
@@ -132,7 +157,7 @@ export const FillingReport = () => {
               color: "var(--text-color)",
             },
             "& .MuiInput-root::after": {
-              "border-bottom" : "2px solid var(--decor-color)",
+              borderBottom: "2px solid var(--decor-color)",
             },
           }}
           id="email"
@@ -147,6 +172,8 @@ export const FillingReport = () => {
           sx={{
             maxWidth: "550px",
             paddingBlockEnd: "15px",
+            border: "none",
+            color: "none",
             width: "90%",
             "& .MuiFormLabel-root": {
               color: "var(--text-color)",
@@ -154,8 +181,8 @@ export const FillingReport = () => {
             "& #title-label": {
               color: "var(--text-color)",
             },
-            "&filedset": {
-              "border-color" : "var(--decor-color)",
+            "& .MuiOutlinedInput-notchedOutline.Mui-selected": {
+              borderColor: "var(--decor-color)",
             },
           }}
           disablePortal
@@ -165,10 +192,15 @@ export const FillingReport = () => {
           onChange={handlerAutocomplete}
           renderInput={(params) => <TextField {...params} label="Объект" />}
         />
+        <InputFileUpload files={files} onChange={uploadFile} />
         <Typography className={styles.error}>{errorText}</Typography>
         <Button
           ref={buttonRef}
-          sx={{ marginBlockStart: "35px", width: "50%",  background: "var(--button-color)" }}
+          sx={{
+            marginBlockStart: "35px",
+            width: "50%",
+            background: "var(--button-color)",
+          }}
           variant="contained"
           onClick={onReportClick}
         >

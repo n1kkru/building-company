@@ -1,5 +1,13 @@
 import { TUpdateStatus } from "../state/reportsSlice";
-import { TNewObject, TNewReport, TObject, TReport, TStatus, TUser } from "./types";
+import {
+  TFileResponse,
+  TNewObject,
+  TNewReport,
+  TObject,
+  TReport,
+  TStatus,
+  TUser,
+} from "./types";
 
 const BASE_URL = "https://3ed8cab4c3743da5.mokky.dev";
 
@@ -25,6 +33,14 @@ export const getReportsApi = () =>
 export const getReportByIdApi = (number: number) =>
   fetch(`${BASE_URL}/reports/${number}`)
     .then((res) => checkResponse<TReport>(res))
+    .then((data) => {
+      if (data) return data;
+      return Promise.reject(data);
+    });
+
+export const getFilesApi = (id: number) =>
+  fetch(`${BASE_URL}/uploads/${id}`)
+    .then((res) => checkResponse<TFileResponse>(res))
     .then((data) => {
       if (data) return data;
       return Promise.reject(data);
@@ -56,6 +72,15 @@ export const postObjectApi = (newObject: TNewObject) =>
     }),
   }).then((data) => {
     if (data) return data;
+    return Promise.reject(data);
+  });
+
+export const postFilesApi = (file: FormData) =>
+  fetch(`${BASE_URL}/uploads`, {
+    method: "POST",
+    body: file,
+  }).then((data) => {
+    if (data.ok) return data.json();
     return Promise.reject(data);
   });
 

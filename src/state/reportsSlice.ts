@@ -1,5 +1,18 @@
-import { getReportByIdApi, getReportsApi, postReportApi, updateReportStatusApi } from "../utils/api";
-import { TNewReport, TObject, TReport, TStatus } from "../utils/types";
+import {
+  getFilesApi,
+  getReportByIdApi,
+  getReportsApi,
+  postFilesApi,
+  postReportApi,
+  updateReportStatusApi,
+} from "../utils/api";
+import {
+  TFileResponse,
+  TNewReport,
+  TObject,
+  TReport,
+  TStatus,
+} from "../utils/types";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface ReportsStateInterface {
@@ -8,6 +21,7 @@ export interface ReportsStateInterface {
   reportPage: TNewReport | null;
   reports: TReport[];
   formData: TReport;
+  file: string;
   error: string | null;
 }
 
@@ -23,8 +37,9 @@ export const initialState: ReportsStateInterface = {
     email: "",
     date: "",
     status: "Ожидает",
-    object: undefined
+    object: undefined,
   },
+  file: "",
   error: "",
 };
 
@@ -38,8 +53,16 @@ export const fetchGetReports = createAsyncThunk(
 
 export const fetchGetReportById = createAsyncThunk(
   "reports/getReport",
-  async function (number : number) {
+  async function (number: number) {
     const res = await getReportByIdApi(number);
+    return res;
+  }
+);
+
+export const fetchGetFilesById = createAsyncThunk(
+  "reports/getFiles",
+  async function (id: number) {
+    const res = await getFilesApi(id);
     return res;
   }
 );
@@ -52,10 +75,20 @@ export const fetchPostReport = createAsyncThunk(
   }
 );
 
+export const fetchPostFiles = createAsyncThunk(
+  "reports/postFiles",
+  async function (files: FileList) {
+    const formData = new FormData();
+    formData.append("file", files[0]);
+    const res = await postFilesApi(formData);
+    return res;
+  }
+);
+
 export type TUpdateStatus = {
   id: number;
   status: TStatus;
-}
+};
 
 export const updateReport = createAsyncThunk(
   "reports/updateReport",
@@ -64,7 +97,6 @@ export const updateReport = createAsyncThunk(
     return res;
   }
 );
-
 
 const reportsSlice = createSlice({
   name: "reports",
@@ -90,6 +122,9 @@ const reportsSlice = createSlice({
     },
     addObject: (state, action: PayloadAction<TObject | undefined>) => {
       state.formData.object = action?.payload;
+    },
+    addId: (state, action: PayloadAction<number>) => {
+      state.formData.fileId = action?.payload;
     },
   },
   extraReducers: (builder) => {
@@ -119,14 +154,29 @@ const reportsSlice = createSlice({
       state.error = String(action.error.message);
     });
 
-    builder.addCase(fetchGetReportById.fulfilled, (state, action : PayloadAction<TReport>) => {
-      state.formData = action?.payload;
+    builder.addCase(
+      fetchGetReportById.fulfilled,
+      (state, action: PayloadAction<TReport>) => {
+        state.formData = action?.payload;
+      }
+    );
+
+    builder.addCase(
+      fetchPostFiles.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.formData.fileId = action?.payload.id;
+      }
+    );
+
+    builder.addCase(fetchGetFilesById.fulfilled, (state, action) => {
+      state.file = action.payload.url;
     });
   },
 });
 
 export const {
   init,
+  addId,
   addReports,
   addTitle,
   addText,
