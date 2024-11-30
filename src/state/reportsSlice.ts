@@ -6,18 +6,13 @@ import {
   postReportApi,
   updateReportStatusApi,
 } from "../utils/api";
-import {
-  TNewReport,
-  TObject,
-  TReport,
-  TStatus,
-} from "../utils/types";
+import { TNewReport, TObject, TReport, TStatus } from "../utils/types";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface ReportsStateInterface {
-  isInit: boolean;
+  isPost: boolean;
   isLoading: boolean;
-  reportPage: TNewReport | null;
+  reportPage: TReport | null;
   reports: TReport[];
   formData: TReport;
   file: string;
@@ -25,7 +20,7 @@ export interface ReportsStateInterface {
 }
 
 export const initialState: ReportsStateInterface = {
-  isInit: false,
+  isPost: false,
   isLoading: false,
   reportPage: null,
   reports: [],
@@ -101,9 +96,6 @@ const reportsSlice = createSlice({
   name: "reports",
   initialState,
   reducers: {
-    init: (state) => {
-      state.isInit = true;
-    },
     addReports: (state, action: PayloadAction<TReport>) => {
       state.reports.push(action.payload);
     },
@@ -141,15 +133,14 @@ const reportsSlice = createSlice({
     });
 
     builder.addCase(fetchPostReport.pending, (state) => {
-      state.isLoading = true;
+      state.isPost = false;
     });
     builder.addCase(fetchPostReport.fulfilled, (state, action) => {
-      // state.isLoading = false;
-      // state.reportPage = action.payload  /* сохранять данные для страницы */
-      console.log(action.meta.arg);
+      state.isPost = true;
+      state.reportPage = action.payload;
     });
     builder.addCase(fetchPostReport.rejected, (state, action) => {
-      state.isLoading = false;
+      state.isPost = false;
       state.error = String(action.error.message);
     });
 
@@ -174,7 +165,6 @@ const reportsSlice = createSlice({
 });
 
 export const {
-  init,
   addId,
   addReports,
   addTitle,

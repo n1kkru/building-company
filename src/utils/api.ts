@@ -56,7 +56,7 @@ export const postReportApi = (newReport: TNewReport) =>
       ...newReport,
     }),
   }).then((data) => {
-    if (data) return data;
+    if (data) return checkResponse<TReport>(data);
     return Promise.reject(data);
   });
 

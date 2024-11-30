@@ -5,12 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import {
-  TextField,
-  Typography,
-  Button,
-  Autocomplete,
-} from "@mui/material";
+import { TextField, Typography, Button, Autocomplete } from "@mui/material";
 
 import {
   addDate,
@@ -39,6 +34,8 @@ export const FillingReport = () => {
 
   const userEmail = useSelector((state) => state.userReducers.user?.email);
   const object = useSelector((state) => state.reportsReducers.formData.object);
+  const isPost = useSelector((state) => state.reportsReducers.isPost);
+  const reportPage = useSelector((state) => state.reportsReducers.reportPage);
   const [errorText, setErrorText] = useState<string | null>(null);
   const [files, setFiles] = React.useState<FileList | null>(null);
 
@@ -61,6 +58,12 @@ export const FillingReport = () => {
       buttonRef.current?.setAttribute("disabled", "true");
     }
   }, [formData]);
+
+  useEffect(() => {
+    /* после отправки заявки перенаправляем на страницу  */
+    const pageid: string = String(reportPage?.id);
+    if (isPost) navigate(`reports/${pageid}`);
+  }, [isPost]);
 
   const onReportClick = () => {
     if (files) {
