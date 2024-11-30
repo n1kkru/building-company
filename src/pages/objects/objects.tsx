@@ -27,72 +27,6 @@ export const Objects = () => {
     (state) => state.objectReducers.objects
   );
 
-  const mocky = [
-    {
-      id: 1,
-      name: "Большая стройка",
-      address: "Воронеж",
-      date: "2023-05-12",
-      total: 0,
-    },
-    {
-      id: 2,
-      name: "Детский сад",
-      address: "Воронеж",
-      date: "2023-07-15",
-      total: 2,
-    },
-    {
-      id: 3,
-      name: "Школа",
-      address: "Москва",
-      date: "2023-09-20",
-      total: 1,
-    },
-    {
-      id: 4,
-      name: "Рынок",
-      address: "Тюмень",
-      date: "2023-05-12",
-      total: 2,
-    },
-    {
-      id: 5,
-      name: "ЖК Динамо",
-      address: "Воркута",
-      date: "2024-01-28",
-      total: 0,
-    },
-    {
-      id: 6,
-      name: "Дом культуры",
-      address: "село Попово",
-      date: "2024-02-03",
-      total: 0,
-    },
-    {
-      id: 7,
-      name: "Дом культуры",
-      address: "село Сомово",
-      date: "2024-03-03",
-      total: 0,
-    },
-    {
-      id: 8,
-      name: "Дом культуры",
-      address: "село Горячее",
-      date: "2024-04-04",
-      total: 0,
-    },
-    {
-      id: 9,
-      name: "Школа",
-      address: "Пенза",
-      date: "2024-05-11",
-      total: 0,
-    },
-  ];
-
   const columns: GridColDef<(typeof objectsList)[number]>[] = [
     { field: "id", headerName: "ID", width: 50 },
     {
@@ -123,7 +57,13 @@ export const Objects = () => {
 
   return (
     <>
-      <Typography variant="h4" component="h2" className={styles.title}>
+      <Typography
+        sx={{
+          fontSize: "clamp(1.5625rem, 1.2946rem + 1.3393vw, 2.5rem)",
+        }}
+        component="h2"
+        className={styles.title}
+      >
         Объекты
       </Typography>
       <DataGrid
@@ -148,10 +88,10 @@ export const Objects = () => {
         disableRowSelectionOnClick
       />
       <Button
-        sx={{color: "var(--button-color)"}}
-        className={styles.button} 
+        sx={{ color: "var(--button-color)" }}
+        className={styles.button}
         onClick={handlerClick}
-        >
+      >
         Создать объект
       </Button>
       {modalIsOpen && <Modal onClose={handlerClose} title={"Создать объект"} />}

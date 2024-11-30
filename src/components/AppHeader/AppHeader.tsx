@@ -24,10 +24,6 @@ export function AppHeader() {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  let isMobile;
-  if (window.screen.width <= 768) isMobile = true;
-  else isMobile = false;
-
   const isAuth = useSelector((state) => state.userReducers.isAuthCheck);
   const isManager = useSelector((state) => state.userReducers.user?.isManager);
   const name = useSelector((state) => state.userReducers.user?.name);

@@ -10,8 +10,6 @@ import { Objects } from "../../pages/objects/objects";
 import { Register } from "../../pages/register/register";
 
 import { useDispatch } from "../../state/store";
-import { fetchGetObjects } from "../../state/objectsSlice";
-import { fetchGetReports } from "../../state/reportsSlice";
 import { getUserThunk } from "../../state/userSlice";
 import { ReportInfo } from "../../pages/report-info/report-info";
 import { OnlyManager, OnlyUnAuth } from "../Protect-Router/protect-router";

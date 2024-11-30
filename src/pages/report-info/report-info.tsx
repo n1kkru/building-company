@@ -33,7 +33,7 @@ export const ReportInfo = () => {
         <Typography variant="h5" component="p" className={styles?.description}>
           {`Заявитель: ${thisReport?.email}`}
         </Typography>
-        <Typography  component="p" className={styles?.description}>
+        <Typography component="p" className={styles?.description}>
           {`Дата заявки: ${thisReport?.date}`}
         </Typography>
         <Typography component="p" className={styles?.description}>

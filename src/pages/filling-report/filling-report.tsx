@@ -10,7 +10,6 @@ import {
   Typography,
   Button,
   Autocomplete,
-  Input,
 } from "@mui/material";
 
 import {
@@ -86,7 +85,13 @@ export const FillingReport = () => {
   return (
     <>
       <form className={styles.form}>
-        <Typography variant="h4" component="h2" className={styles?.title}>
+        <Typography
+          sx={{
+            fontSize: "clamp(1.5625rem, 1.2946rem + 1.3393vw, 2.5rem)",
+          }}
+          component="h2"
+          className={styles?.title}
+        >
           Оставить заявку
         </Typography>
         <TextField
@@ -197,7 +202,7 @@ export const FillingReport = () => {
         <Button
           ref={buttonRef}
           sx={{
-            marginBlockStart: "35px",
+            marginBlockStart: "15px",
             width: "50%",
             background: "var(--button-color)",
           }}

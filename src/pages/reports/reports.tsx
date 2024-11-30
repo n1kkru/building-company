@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styles from "./reports.module.css";
 import { Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -18,9 +18,14 @@ export const Reports = () => {
   useEffect(() => {
     dispatch(fetchGetReports());
   }, []);
+  let mobileRows;
+  if (window.screen.height <= 691) {
+    mobileRows = 5;
+  } else {
+    mobileRows = 8;
+  }
 
   const reportsList = useSelector((store) => store.reportsReducers.reports);
-  const filesList = reportsList.filter((el) => el.fileId);
 
   const newReportsList = reportsList.map((rep: TReport) => {
     return {
@@ -85,7 +90,12 @@ export const Reports = () => {
 
   return (
     <>
-      <Typography variant="h4" component="h2">
+      <Typography
+        sx={{
+          fontSize: "clamp(1.5625rem, 1.2946rem + 1.3393vw, 2.5rem)",
+        }}
+        component="h2"
+      >
         Заявки
       </Typography>
       <DataGrid
@@ -102,11 +112,11 @@ export const Reports = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 8,
+              pageSize: mobileRows,
             },
           },
         }}
-        pageSizeOptions={[8]}
+        pageSizeOptions={[mobileRows]}
         disableRowSelectionOnClick
       />
     </>

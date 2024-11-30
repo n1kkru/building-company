@@ -1,5 +1,4 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import { getObjectsApi, postObjectApi, updateObjectTotalApi } from "../utils/api";
 import { TNewObject, TObject } from "../utils/types";
 
@@ -30,8 +29,6 @@ export const fetchGetObjects = createAsyncThunk(
 export const fetchPostObject = createAsyncThunk(
   "objects/postObject",
   async function (object: TNewObject) {
-    console.log(object);
-    
     const res = await postObjectApi(object);
     return res;
   }

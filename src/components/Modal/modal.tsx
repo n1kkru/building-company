@@ -1,4 +1,4 @@
-import { FC, memo, ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import styles from "./modal.module.css";
@@ -23,7 +23,6 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
 
-
   const onCloseModal = () => {
     if (!onClose) {
       nav(-1);
@@ -44,9 +43,9 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
   }, [onClose]);
 
   const handlerCreate = () => {
-    dispatch(fetchPostObject({name, address, date}))
-    onCloseModal()
-  }
+    dispatch(fetchPostObject({ name, address, date }));
+    onCloseModal();
+  };
 
   return ReactDOM.createPortal(
     <>
@@ -58,7 +57,7 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
           <Button
             className={styles.buttonClose}
             sx={{
-              color : "var(--text-color)",
+              color: "var(--text-color)",
               width: "24px",
               height: "24px",
               padding: "0",
@@ -74,7 +73,7 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
         <div className={styles.content}>
           <form className={styles.form}>
             <TextField
-              sx={{             
+              sx={{
                 maxWidth: "550px",
                 paddingBlockEnd: "15px",
                 width: "90%",
@@ -85,8 +84,8 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
                   color: "var(--text-color)",
                 },
                 "& .MuiInput-root::after": {
-                  "border-bottom" : "2px solid var(--decor-color)",
-                }
+                  "border-bottom": "2px solid var(--decor-color)",
+                },
               }}
               id="name"
               label="Название"
@@ -97,7 +96,7 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
               }}
             />
             <TextField
-              sx={{             
+              sx={{
                 maxWidth: "550px",
                 paddingBlockEnd: "15px",
                 width: "90%",
@@ -108,8 +107,8 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
                   color: "var(--text-color)",
                 },
                 "& .MuiInput-root::after": {
-                  "border-bottom" : "2px solid var(--decor-color)",
-                }
+                  "border-bottom": "2px solid var(--decor-color)",
+                },
               }}
               id="address"
               label="Адрес"
@@ -118,8 +117,8 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
                 setAddress(e.target.value);
               }}
             />
-            <TextField              
-              sx={{             
+            <TextField
+              sx={{
                 maxWidth: "550px",
                 paddingBlockEnd: "15px",
                 width: "90%",
@@ -130,20 +129,24 @@ export const Modal = ({ title, onClose, children }: TModalProps) => {
                   color: "var(--text-color)",
                 },
                 "& .MuiInput-root::after": {
-                  "border-bottom" : "2px solid var(--decor-color)",
-                }
+                  "border-bottom": "2px solid var(--decor-color)",
+                },
               }}
               id="date"
               label="Дата"
               variant="standard"
               onBlur={(e) => {
-                setDate(e.target.value)
+                setDate(e.target.value);
               }}
             />
             <Button
               ref={buttonRef}
               type="submit"
-              sx={{ marginBlockStart: "35px", width: "50%",  background: "var(--button-color)" }}
+              sx={{
+                marginBlockStart: "35px",
+                width: "50%",
+                background: "var(--button-color)",
+              }}
               variant="contained"
               onClick={handlerCreate}
             >

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "../../state/store";
 import { registerUserThunk } from "../../state/userSlice";
 
 import styles from "./register.module.css";
-import { regForMail, validationForm } from "../../utils/utils";
+import { validationForm } from "../../utils/utils";
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,9 @@ export const Register = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (validationForm({ name, email, password, passwordCheck, setErrorText })) {
+    if (
+      validationForm({ name, email, password, passwordCheck, setErrorText })
+    ) {
       buttonRef.current?.classList.remove("Mui-disabled");
       buttonRef.current?.removeAttribute("disabled");
     } else {
@@ -32,14 +34,19 @@ export const Register = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(registerUserThunk({ name, email, password, isManager: false })).then(() =>
-      navigate("/login")
-    );
+    dispatch(
+      registerUserThunk({ name, email, password, isManager: false })
+    ).then(() => navigate("/login"));
   };
 
   return (
     <div>
-      <Typography variant="h4" component="h2">
+      <Typography
+        sx={{
+          fontSize: "clamp(1.5625rem, 1.2946rem + 1.3393vw, 2.5rem)",
+        }}
+        component="h2"
+      >
         Регистрация
       </Typography>
       <form className={styles.form} name="register" onSubmit={handleSubmit}>

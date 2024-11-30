@@ -7,7 +7,6 @@ import {
   updateReportStatusApi,
 } from "../utils/api";
 import {
-  TFileResponse,
   TNewReport,
   TObject,
   TReport,

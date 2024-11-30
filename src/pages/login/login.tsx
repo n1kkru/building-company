@@ -1,5 +1,5 @@
 import { Button, Input, Typography } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { SyntheticEvent, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -7,19 +7,18 @@ import styles from "./login.module.css";
 
 import { loginUserThunk } from "../../state/userSlice";
 import { useDispatch, useSelector } from "../../state/store";
-import { regForMail, validationForm } from "../../utils/utils";
+import { validationForm } from "../../utils/utils";
 
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  /* переменные */
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorText, setErrorText] = useState<string | null>(null);
   const error = useSelector((state) => state.userReducers.error);
   const isAuth = useSelector((state) => state.userReducers.isAuthCheck);
 
-  /* реф кнопки*/
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -39,13 +38,18 @@ export const Login = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUserThunk({ email, password }))
+    dispatch(loginUserThunk({ email, password }));
   };
 
   return (
     <>
       <form className={styles.form} name="login">
-        <Typography variant="h4" component="h2">
+        <Typography
+          sx={{
+            fontSize: "clamp(1.5625rem, 1.2946rem + 1.3393vw, 2.5rem)",
+          }}
+          component="h2"
+        >
           Вход
         </Typography>
         <Input
@@ -82,15 +86,15 @@ export const Login = () => {
           }}
           size="medium"
         />
-        <Typography 
+        <Typography
           sx={{
-            '& .MuiTypography-root' : {
-              'font-size' : '10px',
+            "& .MuiTypography-root": {
+              "font-size": "10px",
             },
-          }} 
+          }}
           className={styles.error}
         >
-            {errorText}
+          {errorText}
         </Typography>
         <Button
           ref={buttonRef}
